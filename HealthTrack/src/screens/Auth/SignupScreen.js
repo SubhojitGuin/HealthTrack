@@ -9,6 +9,4 @@ export default function SignupScreen() {
   )
 }
 
-export const SIGNUP_SCREEN = 'SignupScreen';
-
 const styles = StyleSheet.create({})

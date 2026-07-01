@@ -9,6 +9,4 @@ export default function ProfileScreen() {
   )
 }
 
-export const PROFILE_SCREEN = 'ProfileScreen';
-
 const styles = StyleSheet.create({})

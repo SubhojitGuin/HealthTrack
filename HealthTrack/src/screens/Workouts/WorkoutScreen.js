@@ -9,6 +9,4 @@ export default function WorkoutScreen() {
   )
 }
 
-export const WORKOUT_SCREEN = 'WorkoutScreen';
-
 const styles = StyleSheet.create({})

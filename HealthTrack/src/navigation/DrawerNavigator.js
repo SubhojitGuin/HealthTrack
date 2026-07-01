@@ -6,15 +6,14 @@ import {
   DrawerItemList, 
   DrawerItem 
 } from '@react-navigation/drawer';
-import TabNavigator, { TAB_NAVIGATOR } from './TabNavigator';
-import SettingsScreen, { SETTINGS_SCREEN } from '../screens/Settings/SettingsScreen';
-import AboutScreen, { ABOUT_SCREEN } from '../screens/About/AboutScreen';
-import { LOGIN_SCREEN } from '../screens/Auth/LoginScreen'; 
+import TabNavigator from './TabNavigator';
+import SettingsScreen from '../screens/Settings/SettingsScreen';
+import AboutScreen from '../screens/About/AboutScreen';
 import { useDispatch } from 'react-redux';
 import { logout } from '../store/slices/authSlice';
 import { tokenManager } from '../utils/tokenManager';
 import { storageService } from '../services/storageService';
-
+import { ABOUT_SCREEN, LOGIN_SCREEN, SETTINGS_SCREEN, TAB_NAVIGATOR } from './routes';
 
 const Drawer = createDrawerNavigator();
 
@@ -77,4 +76,3 @@ const styles = StyleSheet.create({
 });
 
 export default DrawerNavigator;
-export const DRAWER_NAVIGATOR = 'DrawerNavigator';
