@@ -5,6 +5,7 @@ import {
   Alert,
   KeyboardAvoidingView,
   Platform,
+  Text
 } from "react-native";
 import { Formik, ErrorMessage } from "formik";
 import * as Yup from "yup";
@@ -23,8 +24,17 @@ import { DRAWER_NAVIGATOR, LOGIN_SCREEN } from "../../navigation/routes";
 const SignupSchema = Yup.object({
   name: Yup.string().required("Name is required"),
   email: Yup.string().email("Invalid email").required("Email is required"),
+  age: Yup.number()
+    .min(1, "Age must be at least 1")
+    .required("Age is required"),
+  weight: Yup.number()
+    .min(1, "Weight must be at least 1")
+    .required("Weight is required"),
+  height: Yup.number()
+    .min(1, "Height must be at least 1")
+    .required("Height is required"),
   password: Yup.string()
-    .min(6, "Min 6 characters")
+    .min(2, "Min 2 characters")
     .required("Password is required"),
 });
 
@@ -37,9 +47,9 @@ export default function SignupScreen({ navigation }) {
 
   const handleSignup = async (values) => {
     try {
-      const user = await signupUser(values);
+      const user = await signupUser({ ...values, age: Number(values.age), weight: Number(values.weight), height: Number(values.weight) , token: "mock_jwt_token_user_001", role: "user", profilePhoto: "", progressPhotos: [] });
 
-      dispatch(login({ user, token: user.token }));
+      dispatch(login({ user: user, token: user.token }));
       tokenManager.setToken(user.token);
       storageService.saveUserData(user);
 
@@ -55,7 +65,7 @@ export default function SignupScreen({ navigation }) {
 
   return (
     <Formik
-      initialValues={{ name: "", email: "", password: "" }}
+      initialValues={{ name: "", email: "", password: "", age: 0, weight: 0, height: 0 }}
       validationSchema={SignupSchema}
       onSubmit={handleSignup}
     >
@@ -78,41 +88,75 @@ export default function SignupScreen({ navigation }) {
           <View>
             <Input
               placeholder="Name"
+              label="Name"
               value={values.name}
               onChangeText={handleChange("name")}
               onBlur={handleBlur("name")}
             />
-            {touched.name && errors.name && (
-              <ErrorText>{errors.name}</ErrorText>
-            )}
+            <ErrorMessage name="name" component={ErrorText} />
 
             <Input
               placeholder="Email"
+              label="Email"
               value={values.email}
               onChangeText={handleChange("email")}
               onBlur={handleBlur("email")}
             />
-            {touched.email && errors.email && (
-              <ErrorText>{errors.email}</ErrorText>
-            )}
+            <ErrorMessage name="email" component={ErrorText} />
 
-            <Input
-              placeholder="Password"
-              secureTextEntry
-              value={values.password}
-              onChangeText={handleChange("password")}
-              onBlur={handleBlur("password")}
-            />
-            {touched.password && errors.password && (
-              <ErrorText>{errors.password}</ErrorText>
-            )}
+            <View style={styles.numericInputsContainer}>
+              <View>
+                <Input
+                  placeholder="Age"
+                  label="Age"
+                  value={values.age.toString()}
+                  onChangeText={handleChange("age")}
+                  onBlur={handleBlur("age")}
+                  keyboardType="numeric"
+                />
+                <ErrorMessage name="age" component={ErrorText} />
+              </View>
+
+              <View>
+                <Input
+                  placeholder="Weight"
+                  label="Weight"
+                  value={values.weight.toString()}
+                  onChangeText={handleChange("weight")}
+                  onBlur={handleBlur("weight")}
+                  keyboardType="numeric"
+                />
+                <ErrorMessage name="weight" component={ErrorText} />
+              </View>
+
+              <View>
+                <Input
+                  placeholder="Height"
+                  label="Height"
+                  value={values.height.toString()}
+                  onChangeText={handleChange("height")}
+                  onBlur={handleBlur("height")}
+                  keyboardType="numeric"
+                />
+                <ErrorMessage name="height" component={ErrorText} />
+              </View>
+              </View>
+              <Input
+                placeholder="Password"
+                label="Password"
+                secureTextEntry
+                value={values.password}
+                onChangeText={handleChange("password")}
+                onBlur={handleBlur("password")}
+              />
+              <ErrorMessage name="password" component={ErrorText} />
           </View>
 
           <Button title="Signup" onPress={handleSubmit} />
 
           <Button
             title="Go to Login"
-            onPress={() => navigation.navigate(LOGIN_SCREEN)}
+            onPress={() => navigation.replace(LOGIN_SCREEN)}
           />
         </KeyboardAvoidingView>
       )}
@@ -130,5 +174,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     marginBottom: 20,
+  },
+  numericInputsContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 10,
   },
 });
