@@ -2,25 +2,29 @@ import React, { useEffect } from "react";
 import { View, ActivityIndicator, StyleSheet } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useDispatch } from "react-redux";
-import { autoLogin } from "../redux/slice/AuthSlice";
-import { AUTH_STORAGE_KEY } from "../../utils/constants";
+import { AUTH_STORAGE_KEY, USER_STORAGE_KEY } from "../../utils/constants";
+import { tokenManager } from "../../utils/tokenManager";
+import { LOGIN_SCREEN } from "./LoginScreen";
+import { DRAWER_NAVIGATOR } from "../../navigation/DrawerNavigator";
+import { autoLogin } from "../../store/slices/authSlice";
+import { storageService } from "../../services/storageService";
 
 const SplashScreen = ({ navigation }) => {
   const dispatch = useDispatch();
 
   const checkLogin = async () => {
     try {
-      const authData = await AsyncStorage.getItem(AUTH_STORAGE_KEY);
-      if (authData) {
-        const { token, user } = JSON.parse(authData);
+      const token = await tokenManager.getToken();
+      if (token) {
+        const user = await storageService.getItem(USER_STORAGE_KEY);
         dispatch(autoLogin({ token, user }));
-        navigation.replace("Drawer");
+        navigation.replace(DRAWER_NAVIGATOR);
       } else {
-        navigation.replace("Login");
+        navigation.replace(LOGIN_SCREEN);
       }
     } catch (error) {
       console.log(error);
-      navigation.replace("Login");
+      navigation.replace(LOGIN_SCREEN);
     }
   };
 
@@ -52,5 +56,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
   },
 });
+
+export const SPLASH_SCREEN = "SplashScreen";
 
 export default SplashScreen;
