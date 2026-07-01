@@ -1,0 +1,424 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "name": "John",
+      "email": "john@gmail.com",
+      "password": "12345",
+      "token": "mock_jwt_token_john_001",
+      "role": "user",
+      "age": 25,
+      "weight": 70,
+      "height": 175,
+      "profilePhoto": "https://unsplash.com",
+      "progressPhotos": [
+        "https://unsplash.com",
+        "https://unsplash.com"
+      ]
+    },
+    {
+      "id": "2",
+      "name": "Jane",
+      "email": "jane@gmail.com",
+      "password": "12345",
+      "role": "user",
+      "token": "mock_jwt_token_jane_002",
+      "age": 28,
+      "weight": 65,
+      "height": 165,
+      "profilePhoto": "https://unsplash.com",
+      "progressPhotos": [
+        "https://unsplash.com"
+      ]
+    },
+    {
+      "id": "3",
+      "name": "Mike",
+      "email": "mike@gmail.com",
+      "password": "12345",
+      "role": "user",
+      "token": "mock_jwt_token_mike_003",
+      "age": 30,
+      "weight": 80,
+      "height": 180,
+      "profilePhoto": "https://unsplash.com",
+      "progressPhotos": []
+    },
+    {
+      "id": "4",
+      "name": "Emily",
+      "email": "emily@gmail.com",
+      "password": "12345",
+      "role": "user",
+      "token": "mock_jwt_token_emily_004",
+      "age": 26,
+      "weight": 60,
+      "height": 160,
+      "profilePhoto": "https://unsplash.com",
+      "progressPhotos": []
+    }
+  ],
+  "workouts": [
+    {
+      "id": "1",
+      "name": "Morning Cardio Blast",
+      "duration": 30,
+      "calories": 250,
+      "level": "Beginner",
+      "targetGoal": "Weight Loss",
+      "videoUrl": "https://googleapis.com",
+      "description": "Low-impact steady-state cardio to kickstart fat burning."
+    },
+    {
+      "id": "2",
+      "name": "Hypertrophy Strength Training",
+      "duration": 45,
+      "calories": 400,
+      "level": "Intermediate",
+      "targetGoal": "Muscle Gain",
+      "videoUrl": "https://googleapis.com",
+      "description": "Focused progressive overload targeting chest, shoulders, and triceps."
+    },
+    {
+      "id": "3",
+      "name": "Vinyasa Yoga Flow",
+      "duration": 60,
+      "calories": 200,
+      "level": "Beginner",
+      "targetGoal": "Flexibility",
+      "videoUrl": "https://googleapis.com",
+      "description": "Enhance structural mobility, flexibility, and core recovery."
+    },
+    {
+      "id": "4",
+      "name": "Full Body HIIT Blast",
+      "duration": 20,
+      "calories": 300,
+      "level": "Advanced",
+      "targetGoal": "Endurance",
+      "videoUrl": "https://googleapis.com",
+      "description": "High-intensity circuits to maximize post-exercise oxygen consumption."
+    },
+    {
+      "id": "5",
+      "name": "Core Shred & Stability",
+      "duration": 15,
+      "calories": 130,
+      "level": "Beginner",
+      "targetGoal": "Weight Loss",
+      "videoUrl": "https://googleapis.com",
+      "description": "Targeted abdominal conditioning to improve trunk strength."
+    },
+    {
+      "id": "6",
+      "name": "Powerlifting Barbell Basics",
+      "duration": 50,
+      "calories": 420,
+      "level": "Advanced",
+      "targetGoal": "Muscle Gain",
+      "videoUrl": "https://googleapis.com",
+      "description": "Heavy compounds concentrating on squats and deadlifts."
+    },
+    {
+      "id": "7",
+      "name": "Deep Mobility Stretching",
+      "duration": 30,
+      "calories": 90,
+      "level": "Beginner",
+      "targetGoal": "Flexibility",
+      "videoUrl": "https://googleapis.com",
+      "description": "Static holds designed to loosen tight hamstrings and hips."
+    },
+    {
+      "id": "8",
+      "name": "Agility & Speed Drills",
+      "duration": 35,
+      "calories": 380,
+      "level": "Intermediate",
+      "targetGoal": "Endurance",
+      "videoUrl": "https://googleapis.com",
+      "description": "Footwork patterns optimized to scale up aerobic power output."
+    }
+  ],
+  "nutrition": [
+    {
+      "id": "1",
+      "meal": "Protein Oatmeal Bowl",
+      "calories": 300,
+      "protein": 12,
+      "carbs": 45,
+      "fats": 5,
+      "targetGoal": "Weight Loss",
+      "type": "Breakfast"
+    },
+    {
+      "id": "2",
+      "meal": "Grilled Chicken Salad",
+      "calories": 400,
+      "protein": 30,
+      "carbs": 10,
+      "fats": 12,
+      "targetGoal": "Muscle Gain",
+      "type": "Lunch"
+    },
+    {
+      "id": "3",
+      "meal": "Quinoa & Avocado Bowl",
+      "calories": 350,
+      "protein": 15,
+      "carbs": 50,
+      "fats": 8,
+      "targetGoal": "Endurance",
+      "type": "Dinner"
+    },
+    {
+      "id": "4",
+      "meal": "Whey Protein Smoothie",
+      "calories": 250,
+      "protein": 20,
+      "carbs": 25,
+      "fats": 4,
+      "targetGoal": "Flexibility",
+      "type": "Snack"
+    },
+    {
+      "id": "5",
+      "meal": "Egg White Omelet with Spinach",
+      "calories": 210,
+      "protein": 24,
+      "carbs": 4,
+      "fats": 7,
+      "targetGoal": "Weight Loss",
+      "type": "Breakfast"
+    },
+    {
+      "id": "6",
+      "meal": "Lean Beef & Brown Rice",
+      "calories": 580,
+      "protein": 42,
+      "carbs": 65,
+      "fats": 14,
+      "targetGoal": "Muscle Gain",
+      "type": "Lunch"
+    },
+    {
+      "id": "7",
+      "meal": "Baked Salmon & Sweet Potato",
+      "calories": 490,
+      "protein": 35,
+      "carbs": 40,
+      "fats": 16,
+      "targetGoal": "Endurance",
+      "type": "Dinner"
+    },
+    {
+      "id": "8",
+      "meal": "Greek Yogurt & Mixed Berries",
+      "calories": 180,
+      "protein": 17,
+      "carbs": 18,
+      "fats": 2,
+      "targetGoal": "Flexibility",
+      "type": "Snack"
+    }
+  ],
+  "workoutHistory": [
+    {
+      "id": "1",
+      "userId": "1",
+      "workoutId": "1",
+      "date": "2026-06-30",
+      "durationCompleted": 30,
+      "caloriesBurned": 250
+    },
+    {
+      "id": "2",
+      "userId": "1",
+      "workoutId": "5",
+      "date": "2026-06-29",
+      "durationCompleted": 15,
+      "caloriesBurned": 130
+    },
+    {
+      "id": "3",
+      "userId": "1",
+      "workoutId": "1",
+      "date": "2026-06-26",
+      "durationCompleted": 28,
+      "caloriesBurned": 240
+    },
+    {
+      "id": "4",
+      "userId": "2",
+      "workoutId": "2",
+      "date": "2026-06-30",
+      "durationCompleted": 45,
+      "caloriesBurned": 400
+    },
+    {
+      "id": "5",
+      "userId": "2",
+      "workoutId": "3",
+      "date": "2026-06-28",
+      "durationCompleted": 60,
+      "caloriesBurned": 200
+    },
+    {
+      "id": "6",
+      "userId": "3",
+      "workoutId": "4",
+      "date": "2026-06-27",
+      "durationCompleted": 20,
+      "caloriesBurned": 300
+    },
+    {
+      "id": "7",
+      "userId": "3",
+      "workoutId": "6",
+      "date": "2026-06-25",
+      "durationCompleted": 50,
+      "caloriesBurned": 420
+    },
+    {
+      "id": "8",
+      "userId": "4",
+      "workoutId": "3",
+      "date": "2026-06-29",
+      "durationCompleted": 45,
+      "caloriesBurned": 150
+    }
+  ],
+  "preferences": [
+    {
+      "id": "1",
+      "userId": "1",
+      "theme": "light",
+      "goal": "Weight Loss",
+      "notificationsEnabled": true
+    },
+    {
+      "id": "2",
+      "userId": "2",
+      "theme": "dark",
+      "goal": "Muscle Gain",
+      "notificationsEnabled": false
+    },
+    {
+      "id": "3",
+      "userId": "3",
+      "theme": "light",
+      "goal": "Endurance",
+      "notificationsEnabled": true
+    },
+    {
+      "id": "4",
+      "userId": "4",
+      "theme": "dark",
+      "goal": "Flexibility",
+      "notificationsEnabled": false
+    }
+  ],
+  "outdoorRuns": [
+    {
+      "id": "r1",
+      "userId": "1",
+      "date": "2026-06-30",
+      "distanceKm": 5.2,
+      "durationMinutes": 28,
+      "routeCoordinates": [
+        { "latitude": 22.5726, "longitude": 88.3639 },
+        { "latitude": 22.5740, "longitude": 88.3650 },
+        { "latitude": 22.5760, "longitude": 88.3670 },
+        { "latitude": 22.5785, "longitude": 88.3695 }
+      ]
+    },
+    {
+      "id": "r2",
+      "userId": "1",
+      "date": "2026-06-27",
+      "distanceKm": 4.8,
+      "durationMinutes": 26,
+      "routeCoordinates": [
+        { "latitude": 22.5320, "longitude": 88.3420 },
+        { "latitude": 22.5350, "longitude": 88.3450 },
+        { "latitude": 22.5410, "longitude": 88.3490 }
+      ]
+    },
+    {
+      "id": "r3",
+      "userId": "3",
+      "date": "2026-06-29",
+      "distanceKm": 8.0,
+      "durationMinutes": 42,
+      "routeCoordinates": [
+        { "latitude": 22.5800, "longitude": 88.3700 },
+        { "latitude": 22.5850, "longitude": 88.3750 },
+        { "latitude": 22.5910, "longitude": 88.3810 }
+      ]
+    }
+  ],
+  "progress": [
+    {
+      "id": "1",
+      "userId": "1",
+      "date": "2026-06-30",
+      "weight": 70,
+      "bodyFatPercentage": 18,
+      "muscleMass": 30
+    },
+    {
+      "id": "2",
+      "userId": "1",
+      "date": "2026-06-25",
+      "weight": 71,
+      "bodyFatPercentage": 19,
+      "muscleMass": 29
+    },
+    {
+      "id": "3",
+      "userId": "2",
+      "date": "2026-06-30",
+      "weight": 65,
+      "bodyFatPercentage": 22,
+      "muscleMass": 28
+    },
+    {
+      "id": "4",
+      "userId": "3",
+      "date": "2026-06-29",
+      "weight": 80,
+      "bodyFatPercentage": 15,
+      "muscleMass": 35
+    }
+  ],
+  "reviews": [
+    {
+      "id": "1",
+      "userId": "1",
+      "workoutId": "1",
+      "rating": 5,
+      "comment": "Great workout! Really helped me get my heart rate up."
+    },
+    {
+      "id": "2",
+      "userId": "2",
+      "workoutId": "2",
+      "rating": 4,
+      "comment": "Challenging but effective. I can feel the muscle burn!"
+    },
+    {
+      "id": "3",
+      "userId": "3",
+      "workoutId": "3",
+      "rating": 5,
+      "comment": "Loved the flow and the stretches. Very relaxing."
+    },
+    {
+      "id": "4",
+      "userId": "4",
+      "workoutId": "4",
+      "rating": 3,
+      "comment": "Intense workout, but I wish it was a bit longer."
+    }
+  ]
+}
