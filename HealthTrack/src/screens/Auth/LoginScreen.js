@@ -11,6 +11,7 @@ import { DRAWER_NAVIGATOR } from '../../navigation/DrawerNavigator';
 import { SIGNUP_SCREEN } from './SignupScreen';
 import { storageService } from "../../services/storageService";
 import { tokenManager } from "../../utils/tokenManager";
+import SectionHeader from "../../components/SectionHeader";
 
 const LoginSchema = Yup.object({
   email: Yup.string().email("Invalid Email").required("Email is required"),
@@ -52,7 +53,9 @@ export default function LoginScreen({ navigation }) {
     >
       {({ values, handleChange, handleBlur, handleSubmit }) => (
         <KeyboardAvoidingView style={styles.loginContainer} behavior="padding">
-          <Text>Login</Text>
+          <View style={styles.sectionContainer}>
+            <SectionHeader text="Login" />
+          </View>
           <View>
             <Input
               placeholder="Email"
@@ -81,6 +84,11 @@ export default function LoginScreen({ navigation }) {
 export const LOGIN_SCREEN = 'LoginScreen';
 
 const styles = StyleSheet.create({
+  sectionContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginBottom: 20,
+  },
   loginContainer: {
     flex: 1,
     justifyContent: 'center',
