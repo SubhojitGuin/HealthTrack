@@ -71,3 +71,13 @@ export const fetchUserPreference = async (userId) => {
     throw error;
   }
 };
+
+export const signupUser = async (userData) => {
+  try {
+    const response = await fitnessApi.post("/users", userData);
+    return response.data;
+  } catch (error) {
+    console.error("Signup error:", error);
+    throw error;
+  }
+};
