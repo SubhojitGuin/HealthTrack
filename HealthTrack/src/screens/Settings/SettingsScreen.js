@@ -9,6 +9,4 @@ export default function SettingsScreen() {
   )
 }
 
-export const SETTINGS_SCREEN = 'SettingsScreen';
-
 const styles = StyleSheet.create({})

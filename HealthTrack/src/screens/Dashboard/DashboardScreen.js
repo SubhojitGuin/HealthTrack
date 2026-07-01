@@ -9,6 +9,4 @@ export default function DashboardScreen() {
   )
 }
 
-export const DASHBOARD_SCREEN = 'DashboardScreen';
-
 const styles = StyleSheet.create({})

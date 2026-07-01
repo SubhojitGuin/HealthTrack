@@ -4,10 +4,9 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useDispatch } from "react-redux";
 import { AUTH_STORAGE_KEY, USER_STORAGE_KEY } from "../../utils/constants";
 import { tokenManager } from "../../utils/tokenManager";
-import { LOGIN_SCREEN } from "./LoginScreen";
-import { DRAWER_NAVIGATOR } from "../../navigation/DrawerNavigator";
 import { autoLogin } from "../../store/slices/authSlice";
 import { storageService } from "../../services/storageService";
+import { DRAWER_NAVIGATOR, LOGIN_SCREEN } from "../../navigation/routes";
 
 const SplashScreen = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -56,7 +55,5 @@ const styles = StyleSheet.create({
     borderRadius: 12,
   },
 });
-
-export const SPLASH_SCREEN = "SplashScreen";
 
 export default SplashScreen;

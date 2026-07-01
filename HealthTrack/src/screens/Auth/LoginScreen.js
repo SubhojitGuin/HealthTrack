@@ -7,11 +7,10 @@ import Input from '../../components/Input/index'
 import { login } from '../../store/slices/authSlice';
 import { loginUser } from '../../api/fitnessService';
 import Button from '../../components/Button';
-import { DRAWER_NAVIGATOR } from '../../navigation/DrawerNavigator';
-import { SIGNUP_SCREEN } from './SignupScreen';
 import { storageService } from "../../services/storageService";
 import { tokenManager } from "../../utils/tokenManager";
 import SectionHeader from "../../components/SectionHeader";
+import { DRAWER_NAVIGATOR, SIGNUP_SCREEN } from "../../navigation/routes";
 
 const LoginSchema = Yup.object({
   email: Yup.string().email("Invalid Email").required("Email is required"),
@@ -80,8 +79,6 @@ export default function LoginScreen({ navigation }) {
     </Formik>
   )
 }
-
-export const LOGIN_SCREEN = 'LoginScreen';
 
 const styles = StyleSheet.create({
   sectionContainer: {

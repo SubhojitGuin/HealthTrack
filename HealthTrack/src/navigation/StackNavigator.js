@@ -1,9 +1,10 @@
 import React from 'react'
-import LoginScreen, { LOGIN_SCREEN } from '../screens/Auth/LoginScreen';
-import SignupScreen, { SIGNUP_SCREEN } from '../screens/Auth/SignupScreen';
-import DrawerNavigator, { DRAWER_NAVIGATOR } from './DrawerNavigator';
+import LoginScreen from '../screens/Auth/LoginScreen';
+import SignupScreen from '../screens/Auth/SignupScreen';
+import DrawerNavigator from './DrawerNavigator';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import SplashScreen, { SPLASH_SCREEN } from '../screens/Auth/SplashScreen';
+import SplashScreen from '../screens/Auth/SplashScreen';
+import { DRAWER_NAVIGATOR, LOGIN_SCREEN, SIGNUP_SCREEN, SPLASH_SCREEN } from './routes';
 
 const Stack = createNativeStackNavigator();
 
@@ -17,5 +18,3 @@ export default function StackNavigator() {
     </Stack.Navigator>
   )
 }
-
-export const STACK_NAVIGATOR = 'StackNavigator';

@@ -9,6 +9,4 @@ export default function AboutScreen() {
   )
 }
 
-export const ABOUT_SCREEN = 'AboutScreen';
-
 const styles = StyleSheet.create({})
