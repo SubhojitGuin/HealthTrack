@@ -1,4 +1,4 @@
-import { View, Text, TextInput, StyleSheet, Alert, KeyboardAvoidingView } from "react-native";
+import { View, Text, StyleSheet, Alert, KeyboardAvoidingView, Platform } from "react-native";
 import React from 'react'
 import { Formik, ErrorMessage } from "formik";
 import * as Yup from "yup";
@@ -31,9 +31,11 @@ export default function LoginScreen({ navigation }) {
     loginUser(email, password).then(response => {
       const user = response;
       console.log("Login successful:", user);
+
       dispatch(login({ user: user, token: user.token }));
       tokenManager.setToken(user.token);
       storageService.saveUserData(user);
+
       navigation.reset({
         index: 0,
         routes: [{ name: DRAWER_NAVIGATOR }],
@@ -51,7 +53,7 @@ export default function LoginScreen({ navigation }) {
       onSubmit={handleLogin}
     >
       {({ values, handleChange, handleBlur, handleSubmit }) => (
-        <KeyboardAvoidingView style={styles.loginContainer} behavior="padding">
+        <KeyboardAvoidingView style={styles.loginContainer} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
           <View style={styles.sectionContainer}>
             <SectionHeader text="Login" />
           </View>
@@ -73,7 +75,7 @@ export default function LoginScreen({ navigation }) {
             <ErrorMessage name="password" component={ErrorText} />
           </View>
           <Button title="Login" onPress={handleSubmit} />
-          <Button title="Go to Signup" onPress={() => navigation.navigate(SIGNUP_SCREEN)} />
+          <Button title="Go to Signup" onPress={() => navigation.replace(SIGNUP_SCREEN)} />
         </KeyboardAvoidingView>
       )}
     </Formik>
