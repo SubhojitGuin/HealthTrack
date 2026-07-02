@@ -16,7 +16,7 @@ const authSlice = createSlice({
       state.token = action.payload.token;
       state.profilePhoto = action.payload.user.profilePhoto;
       state.progressPhotos = action.payload.user.progressPhotos || [];
-      state.isAuthenticated = true;
+      state.isLoggedIn = true;
       state.isLoading = false;
     },
     logout: (state) => {
@@ -24,15 +24,7 @@ const authSlice = createSlice({
       state.token = null;
       state.profilePhoto = null;
       state.progressPhotos = [];
-      state.isAuthenticated = false;
-      state.isLoading = false;
-    },
-    autoLogin: (state, action) => {
-      state.user = action.payload.user;
-      state.token = action.payload.token;
-      state.profilePhoto = action.payload.user.profilePhoto;
-      state.progressPhotos = action.payload.user.progressPhotos || [];
-      state.isLoggedIn = true;
+      state.isLoggedIn = false;
       state.isLoading = false;
     },
     setLoading: (state, action) => {
@@ -49,5 +41,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { login, logout, autoLogin, setLoading, updateProfilePhoto, addProgressPhoto } = authSlice.actions;
+export const { login, logout, setLoading, updateProfilePhoto, addProgressPhoto } = authSlice.actions;
 export default authSlice.reducer;

@@ -4,7 +4,7 @@ const initialState = {
   availableWorkouts: [], // Hydrated from fitnessService API call
   nutritionPlans: [],    // Hydrated from fitnessService API call
   history: [],           // Filters matching userId records
-  userPreference: null,  // Target tracking goal context
+  userPreferences: null,  // Target tracking goal context
 };
 
 const workoutSlice = createSlice({
@@ -20,8 +20,8 @@ const workoutSlice = createSlice({
     setUserWorkoutHistory: (state, action) => {
       state.history = action.payload.history;
     },
-    setUserPreference: (state, action) => {
-      state.userPreference = action.payload.preference;
+    setUserPreferences: (state, action) => {
+      state.userPreferences = action.payload.preferences;
     },
     logNewWorkout: (state, action) => {
       state.history.unshift(action.payload); // Prepends most recent completed session
@@ -29,5 +29,5 @@ const workoutSlice = createSlice({
   },
 });
 
-export const { setWorkoutData, setNutritionPlans, setUserWorkoutHistory, setUserPreference, logNewWorkout } = workoutSlice.actions;
+export const { setWorkoutData, setNutritionPlans, setUserWorkoutHistory, setUserPreferences, logNewWorkout } = workoutSlice.actions;
 export default workoutSlice.reducer;

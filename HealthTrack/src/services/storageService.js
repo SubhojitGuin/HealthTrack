@@ -1,5 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { USER_STORAGE_KEY } from "../utils/constants";
+import { PREFERENCES_STORAGE_KEY, USER_STORAGE_KEY } from "../utils/constants";
 
 const getValue = (value) => {
   try {
@@ -52,6 +52,21 @@ export const storageService = {
       return await storageService.getItem(USER_STORAGE_KEY);
     } catch (error) {
       console.error("Error occurred while fetching user from storage:", error);
+      return null;
+    }
+  },
+  saveUserPreferences: async (preferences) => {
+    try {
+      await storageService.setItem(PREFERENCES_STORAGE_KEY, preferences);
+    } catch (error) {
+      console.error("Error occurred while saving preferences to storage:", error);
+    }
+  },
+  getUserPreferences: async () => {
+    try {
+      return await storageService.getItem(PREFERENCES_STORAGE_KEY);
+    } catch (error) {
+      console.error("Error occurred while fetching preferences from storage:", error);
       return null;
     }
   },

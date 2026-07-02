@@ -5,12 +5,14 @@ import * as Yup from "yup";
 import { useDispatch } from 'react-redux';
 import Input from '../../components/Input/index'
 import { login } from '../../store/slices/authSlice';
-import { loginUser } from '../../api/fitnessService';
+import { fetchUserPreferences, loginUser } from '../../api/fitnessService';
 import Button from '../../components/Button';
 import { storageService } from "../../services/storageService";
 import { tokenManager } from "../../utils/tokenManager";
 import SectionHeader from "../../components/SectionHeader";
 import { DRAWER_NAVIGATOR, SIGNUP_SCREEN } from "../../navigation/routes";
+import { setUserPreferences } from "../../store/slices/workoutSlice";
+import { setTheme } from "../../store/slices/themeSlice";
 
 const LoginSchema = Yup.object({
   email: Yup.string().email("Invalid Email").required("Email is required"),
@@ -28,13 +30,21 @@ export default function LoginScreen({ navigation }) {
     console.log("Login values:", values);
     const { email, password } = values;
 
-    loginUser(email, password).then(response => {
+    loginUser(email, password).then(async (response) => {
       const user = response;
       console.log("Login successful:", user);
 
+      const preferences = await fetchUserPreferences(user.id);
+
+      console.log("Fetched user preferences:", preferences);
+
       dispatch(login({ user: user, token: user.token }));
+      dispatch(setUserPreferences({ preferences }));
+      dispatch(setTheme({ mode: preferences.theme }));
+
       tokenManager.setToken(user.token);
       storageService.saveUserData(user);
+      storageService.saveUserPreferences(preferences);
 
       navigation.reset({
         index: 0,

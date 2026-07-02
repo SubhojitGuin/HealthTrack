@@ -85,3 +85,35 @@ export const fetchNutritionPlans = async () => {
     throw error;
   } 
 };
+
+export const fetchUserPreferences = async (userId) => {
+  try {
+    const response = await fitnessApi.get(`/preferences`, {
+      params: { userId },
+    });
+    return response.data.length > 0 ? response.data[0] : null;
+  } catch (error) {
+    console.error("Error fetching user preferences:", error);
+    throw error;
+  }
+};
+
+export const updateUserPreferences = async (preferenceId, preferences) => {
+  try {
+    const response = await fitnessApi.put(`/preferences/${preferenceId}`, preferences);
+    return response.data;
+  } catch (error) {
+    console.error("Error updating user preferences:", error);
+    throw error;
+  }
+};
+
+export const addUserPreferences = async (preferences) => {
+  try {
+    const response = await fitnessApi.post(`/preferences`, preferences);
+    return response.data;
+  } catch (error) {
+    console.error("Error adding user preferences:", error);
+    throw error;
+  }
+};

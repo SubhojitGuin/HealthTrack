@@ -15,11 +15,13 @@ import Input from "../../components/Input";
 import Button from "../../components/Button";
 import SectionHeader from "../../components/SectionHeader";
 
-import { signupUser } from "../../api/fitnessService";
+import { addUserPreferences, signupUser } from "../../api/fitnessService";
 import { login } from "../../store/slices/authSlice";
 import { storageService } from "../../services/storageService";
 import { tokenManager } from "../../utils/tokenManager";
 import { DRAWER_NAVIGATOR, LOGIN_SCREEN } from "../../navigation/routes";
+import { setUserPreferences } from "../../store/slices/workoutSlice";
+import { setTheme } from "../../store/slices/themeSlice";
 
 const SignupSchema = Yup.object({
   name: Yup.string().required("Name is required"),
@@ -47,11 +49,22 @@ export default function SignupScreen({ navigation }) {
 
   const handleSignup = async (values) => {
     try {
-      const user = await signupUser({ ...values, age: Number(values.age), weight: Number(values.weight), height: Number(values.weight) , token: "mock_jwt_token_user_001", role: "user", profilePhoto: "", progressPhotos: [] });
+      const user = await signupUser({ ...values, age: Number(values.age), weight: Number(values.weight), height: Number(values.height), token: "mock_jwt_token_user_001", role: "user", profilePhoto: "", progressPhotos: [] });
+      
+      const preferences = await addUserPreferences({
+        userId: user.id,
+        theme: "light",
+        goal: "Weight",
+        notificationsEnabled: true,
+      });
 
       dispatch(login({ user: user, token: user.token }));
+      dispatch(setUserPreferences({ preferences }));
+      dispatch(setTheme({ mode: preferences.theme }));
+
       tokenManager.setToken(user.token);
       storageService.saveUserData(user);
+      storageService.saveUserPreferences(preferences);
 
       navigation.reset({
         index: 0,
