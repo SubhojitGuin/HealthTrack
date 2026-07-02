@@ -70,6 +70,7 @@ export const fetchUserPreference = async (userId) => {
     console.error("Error fetching user preference:", error);
     throw error;
   }
+  return user;
 };
 
 export const signupUser = async (userData) => {
