@@ -74,8 +74,10 @@ export default function LoginScreen({ navigation }) {
             />
             <ErrorMessage name="password" component={ErrorText} />
           </View>
-          <Button title="Login" onPress={handleSubmit} />
-          <Button title="Go to Signup" onPress={() => navigation.replace(SIGNUP_SCREEN)} />
+          <View style={styles.buttonContainer}>
+            <Button title="Login" onPress={handleSubmit} />
+            <Button title="Go to Signup" onPress={() => navigation.replace(SIGNUP_SCREEN)} />
+          </View>
         </KeyboardAvoidingView>
       )}
     </Formik>
@@ -92,5 +94,9 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     padding: 20,
+  },
+  buttonContainer: {
+    marginTop: 20,
+    gap: 10,
   },
 });
