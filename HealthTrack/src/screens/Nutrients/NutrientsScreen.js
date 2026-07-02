@@ -1,13 +1,15 @@
-import { FlatList, StyleSheet, Text, View } from 'react-native'
-import React from 'react'
-import SectionHeader from '../../components/SectionHeader'
-import { DASHBOARD_SCREEN, WORKOUT_SCREEN } from '../../navigation/routes'; // Fixed missing import
+import { FlatList, StyleSheet, Text, View, KeyboardAvoidingView, Platform } from 'react-native';
+import React from 'react';
+import SectionHeader from '../../components/SectionHeader';
+import { DASHBOARD_SCREEN, WORKOUT_SCREEN } from '../../navigation/routes'; 
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchNutritionPlans } from '../../api/fitnessService';
 import { setNutritionPlans } from '../../store/slices/workoutSlice';
 import Button from '../../components/Button';
 import FilterButton from '../../components/FilterButton';
 import NutrientCard from '../../components/NutrientCard';
+import Input from '../../components/Input';
+import useDebounce from '../../hooks/useDebounce';
 
 const nutritionPlanTypes = [
   { label: "All", value: "" },
@@ -17,39 +19,16 @@ const nutritionPlanTypes = [
   { label: "Snack", value: "Snack" },
 ];
 
-export default function NutrientsScreen({ navigation }) {
-  const dispatch = useDispatch();
-  
-  const storeNutritionPlans = useSelector((state) => state.workout.nutritionPlans) || [];
-
-  const [ selectedPlanType, setSelectedPlanType ] = React.useState("");
-  const [ filteredNutrients, setFilteredNutrients ] = React.useState([]);
-
-  React.useEffect(() => {
-    if (storeNutritionPlans.length === 0) {
-      fetchNutritionPlans().then(plans => {
-        dispatch(setNutritionPlans({ plans }));
-      }).catch(error => {
-        console.error("Failed to fetch nutrition plans:", error);
-      });
-    }
-  }, [dispatch, storeNutritionPlans]);
-
-  React.useEffect(() => {
-    if (selectedPlanType) {
-      setFilteredNutrients(storeNutritionPlans.filter(nutrient => nutrient.type === selectedPlanType));
-    } else {
-      setFilteredNutrients(storeNutritionPlans);
-    }
-  }, [selectedPlanType, storeNutritionPlans]);
-
-  const handlePlanTypeChange = (type) => {
-    setSelectedPlanType(type);
-  };
-
-  const renderHeader = () => (
+const ScreenHeader = ({ searchQuery, setSearchQuery, selectedPlanType, handlePlanTypeChange }) => {
+  return (
     <View style={styles.headerContainer}>
       <SectionHeader text="Nutrient Plans" subtitle="Track your daily meals" />
+
+      <Input 
+        placeholder="Search meals..." 
+        value={searchQuery}
+        onChangeText={setSearchQuery}
+      />
 
       <FlatList
         horizontal
@@ -67,6 +46,42 @@ export default function NutrientsScreen({ navigation }) {
       />
     </View>
   );
+};
+
+export default function NutrientsScreen({ navigation }) {
+  const dispatch = useDispatch();
+  
+  const storeNutritionPlans = useSelector((state) => state.workout.nutritionPlans) || [];
+
+  const [ selectedPlanType, setSelectedPlanType ] = React.useState("");
+  const [ searchQuery, setSearchQuery ] = React.useState(""); 
+  const [ filteredNutrients, setFilteredNutrients ] = React.useState([]);
+
+  const debouncedSearchQuery = useDebounce(searchQuery, 400);
+
+  React.useEffect(() => {
+    if (storeNutritionPlans.length === 0) {
+      fetchNutritionPlans().then(plans => {
+        dispatch(setNutritionPlans({ plans }));
+      }).catch(error => {
+        console.error("Failed to fetch nutrition plans:", error);
+      });
+    }
+  }, [dispatch, storeNutritionPlans.length]); 
+
+  React.useEffect(() => {
+    const filtered = storeNutritionPlans.filter(nutrient => {
+      const matchesType = selectedPlanType ? nutrient.type === selectedPlanType : true;
+      
+      const matchesSearch = nutrient.meal ? nutrient.meal.toLowerCase().includes(debouncedSearchQuery.toLowerCase()) : false;
+      return matchesType && matchesSearch;
+    });
+    setFilteredNutrients(filtered);
+  }, [selectedPlanType, storeNutritionPlans, debouncedSearchQuery]);
+
+  const handlePlanTypeChange = (type) => {
+    setSelectedPlanType(type);
+  };
 
   const renderFooter = () => (
     <View style={styles.footerContainer}>
@@ -78,21 +93,36 @@ export default function NutrientsScreen({ navigation }) {
   );
 
   return (
-    <FlatList 
-      style={styles.container}
-      data={filteredNutrients}
-      keyExtractor={(item, index) => item.id ? item.id.toString() : index.toString()}
-      ListHeaderComponent={renderHeader}
-      ListFooterComponent={renderFooter}
-      ListEmptyComponent={<Text style={styles.emptyText}>No nutrient plan available.</Text>}
-      renderItem={({ item }) => (
-        <NutrientCard nutrient={item} />
-      )}
-    />
+    <KeyboardAvoidingView 
+      style={styles.keyboardContainer} 
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+    >
+      <FlatList 
+        style={styles.container}
+        data={filteredNutrients}
+        keyExtractor={(item, index) => item.id ? item.id.toString() : index.toString()}
+        ListHeaderComponent={
+          <ScreenHeader 
+            searchQuery={searchQuery}
+            setSearchQuery={setSearchQuery}
+            selectedPlanType={selectedPlanType}
+            handlePlanTypeChange={handlePlanTypeChange}
+          />
+        }
+        ListFooterComponent={renderFooter}
+        ListEmptyComponent={<Text style={styles.emptyText}>No nutrient plan available.</Text>}
+        renderItem={({ item }) => (
+          <NutrientCard nutrient={item} />
+        )}
+      />
+    </KeyboardAvoidingView>
   )
 }
 
 const styles = StyleSheet.create({
+  keyboardContainer: {
+    flex: 1,
+  },
   container: {
     flex: 1,
     paddingHorizontal: 20, 
