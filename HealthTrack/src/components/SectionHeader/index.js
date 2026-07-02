@@ -1,10 +1,11 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
-const SectionHeader = ({ text }) => {
+const SectionHeader = ({ text, subtitle }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.header}>{text}</Text>
+      {subtitle && <Text style={styles.subtitle}>{subtitle}</Text>}
     </View>
   )
 }
@@ -20,5 +21,9 @@ const styles = StyleSheet.create({
   header: {
     fontSize: 18,
     fontWeight: 'bold',
+  },
+  subtitle: {
+    fontSize: 14,
+    color: '#666',
   },
 })

@@ -75,3 +75,13 @@ export const fetchUserPreference = async (userId) => {
     throw error;
   }
 };
+
+export const fetchNutritionPlans = async () => {
+  try {
+    const response = await fitnessApi.get("/nutrition");
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching nutrition plans:", error);
+    throw error;
+  } 
+};
