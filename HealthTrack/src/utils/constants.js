@@ -5,3 +5,4 @@ export const API_BASE_URL = (Platform.OS === "web") ? "http://localhost:4000" : 
 // AsyncStorage Keys
 export const AUTH_STORAGE_KEY = "authToken";
 export const USER_STORAGE_KEY = "userData";
+export const PREFERENCES_STORAGE_KEY = "userPreferences";

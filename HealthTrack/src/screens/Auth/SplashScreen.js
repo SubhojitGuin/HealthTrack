@@ -2,11 +2,13 @@ import React, { useEffect } from "react";
 import { View, ActivityIndicator, StyleSheet } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useDispatch } from "react-redux";
-import { AUTH_STORAGE_KEY, USER_STORAGE_KEY } from "../../utils/constants";
+import { AUTH_STORAGE_KEY, PREFERENCES_STORAGE_KEY, USER_STORAGE_KEY } from "../../utils/constants";
 import { tokenManager } from "../../utils/tokenManager";
-import { autoLogin } from "../../store/slices/authSlice";
+import { login } from "../../store/slices/authSlice";
 import { storageService } from "../../services/storageService";
 import { DRAWER_NAVIGATOR, LOGIN_SCREEN } from "../../navigation/routes";
+import { setUserPreferences } from "../../store/slices/workoutSlice";
+import { setTheme } from "../../store/slices/themeSlice";
 
 const SplashScreen = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -14,9 +16,18 @@ const SplashScreen = ({ navigation }) => {
   const checkLogin = async () => {
     try {
       const token = await tokenManager.getToken();
+
       if (token) {
         const user = await storageService.getItem(USER_STORAGE_KEY);
-        dispatch(autoLogin({ token, user }));
+        const preferences = await storageService.getItem(PREFERENCES_STORAGE_KEY);
+
+        console.log("User data from storage:", user);
+        console.log("User preferences from storage:", preferences);
+
+        dispatch(login({ token, user }));
+        dispatch(setUserPreferences({ preferences }));
+        dispatch(setTheme({ mode: preferences.theme }));
+
         navigation.replace(DRAWER_NAVIGATOR);
       } else {
         navigation.replace(LOGIN_SCREEN);
