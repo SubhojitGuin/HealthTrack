@@ -2,7 +2,7 @@ import axios from "axios";
 import { API_BASE_URL } from "../utils/constants";
 import { tokenManager } from "../utils/tokenManager";
 
-const fitnessApi = axios.create({
+export const fitnessApi = axios.create({
   baseURL: API_BASE_URL,
   timeout: 10000,
 });
@@ -17,7 +17,7 @@ fitnessApi.interceptors.request.use(
   },
   (error) => {
     return Promise.reject(error);
-  }
+  },
 );
 
 export const loginUser = async (email, password) => {
