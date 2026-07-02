@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TextInput } from 'react-native'; // Fixed import
+import { StyleSheet, Text, View, TextInput } from 'react-native';
 import React from 'react';
 
 const Input = ({
