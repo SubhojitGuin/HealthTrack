@@ -105,8 +105,8 @@ export default function DashboardScreen({ navigation }) {
       <SummaryCard title="Your Goal" value={goal ? `🎯 ${goal}` : "No goal set"} />
 
       <View style={styles.buttonContainer}>
-        <Button title="🏋️‍♀️Go to Workouts" onPress={() => navigation.navigate(WORKOUT_SCREEN)} />
-        <Button title="🏋️‍♀️Go to Profile" onPress={() => navigation.navigate(PROFILE_SCREEN)} />
+        <Button title="🏋️Go to Workouts" onPress={() => navigation.navigate(WORKOUT_SCREEN)} />
+        <Button title="🏋️Go to Profile" onPress={() => navigation.navigate(PROFILE_SCREEN)} />
       </View>
     </View>
   );

@@ -12,3 +12,4 @@ export const DASHBOARD_SCREEN = 'DashboardScreen';
 export const PROFILE_SCREEN = 'ProfileScreen';
 export const SETTINGS_SCREEN = 'SettingsScreen';
 export const WORKOUT_SCREEN = 'WorkoutScreen';
+export const NUTRIENTS_SCREEN = 'NutrientsScreen';
