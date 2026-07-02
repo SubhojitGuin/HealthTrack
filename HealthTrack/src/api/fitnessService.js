@@ -2,7 +2,7 @@ import axios from "axios";
 import { API_BASE_URL } from "../utils/constants";
 import { tokenManager } from "../utils/tokenManager";
 
-const fitnessApi = axios.create({
+export const fitnessApi = axios.create({
   baseURL: API_BASE_URL,
   timeout: 10000,
 });
@@ -17,7 +17,7 @@ fitnessApi.interceptors.request.use(
   },
   (error) => {
     return Promise.reject(error);
-  }
+  },
 );
 
 export const loginUser = async (email, password) => {
@@ -44,7 +44,9 @@ export const signupUser = async (userData) => {
 
 export const fetchWorkoutHistory = async (userId) => {
   try {
-    const response = await fitnessApi.get(`/workoutHistory`, { params: { userId } });
+    const response = await fitnessApi.get(`/workoutHistory`, {
+      params: { userId },
+    });
     return response.data;
   } catch (error) {
     console.error("Error fetching workout history:", error);
@@ -64,7 +66,9 @@ export const fetchAvailableWorkouts = async () => {
 
 export const fetchUserPreference = async (userId) => {
   try {
-    const response = await fitnessApi.get(`/preferences`, { params: { userId } });
+    const response = await fitnessApi.get(`/preferences`, {
+      params: { userId },
+    });
     return response.data.length > 0 ? response.data[0] : null;
   } catch (error) {
     console.error("Error fetching user preference:", error);
