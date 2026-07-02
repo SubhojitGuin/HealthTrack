@@ -5,7 +5,7 @@ const getValue = (value) => {
   try {
     return JSON.parse(value);
   } catch {
-    return value; // Returns raw string if it isn't valid JSON
+    return value;
   }
 }
 

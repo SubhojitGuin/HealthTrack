@@ -134,7 +134,7 @@ export default function DashboardScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 20, // Moved padding from container to avoid clipping list items
+    paddingHorizontal: 20, 
     backgroundColor: '#f5f5f5',
   },
   headerContainer: {
