@@ -2,7 +2,7 @@ import axios from "axios";
 import { API_BASE_URL } from "../utils/constants";
 import { tokenManager } from "../utils/tokenManager";
 
-const fitnessApi = axios.create({
+export const fitnessApi = axios.create({
   baseURL: API_BASE_URL,
   timeout: 10000,
 });
@@ -17,21 +17,35 @@ fitnessApi.interceptors.request.use(
   },
   (error) => {
     return Promise.reject(error);
-  }
+  },
 );
 
+// export const loginUser = async (email, password) => {
+//   try {
+//     const response = await fitnessApi.get("/users", {
+//       params: { email, password },
+//     });
+//     if (response.data.length > 0) {
+//       return response.data[0];
+//     } else {
+//       throw new Error("Invalid email or password");
+//     }
+//   } catch (error) {
+//     console.error("Login error:", error);
+//     throw error;
+//   }
+// };
+
 export const loginUser = async (email, password) => {
-  try {
-    const response = await fitnessApi.get("/users", { params: { email, password } });
-    if (response.data.length > 0) {
-      return response.data[0];
-    } else {
-      throw new Error("Invalid email or password");
-    }
-  } catch (error) {
-    console.error("Login error:", error);
-    throw error;
+  const response = await fitnessApi.get("/users", {
+    params: { email },
+  });
+
+  const user = response.data.find((u) => u.password === password);
+  if (!user) {
+    throw new Error("Invalid email or password");
   }
+  return user;
 };
 
 export const signupUser = async (userData) => {
