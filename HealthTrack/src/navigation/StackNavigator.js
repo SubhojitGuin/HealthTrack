@@ -11,10 +11,10 @@ const Stack = createNativeStackNavigator();
 export default function StackNavigator() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName={SPLASH_SCREEN}>
-      <Stack.Screen name={SPLASH_SCREEN} component={SplashScreen} />
-      <Stack.Screen name={LOGIN_SCREEN} component={LoginScreen} />
-      <Stack.Screen name={SIGNUP_SCREEN} component={SignupScreen} />
-      <Stack.Screen name={DRAWER_NAVIGATOR} component={DrawerNavigator} />
+      <Stack.Screen name={SPLASH_SCREEN} component={SplashScreen} options={{ title: "Splash" }} />
+      <Stack.Screen name={LOGIN_SCREEN} component={LoginScreen} options={{ title: "Login" }} />
+      <Stack.Screen name={SIGNUP_SCREEN} component={SignupScreen} options={{ title: "Signup" }} />
+      <Stack.Screen name={DRAWER_NAVIGATOR} component={DrawerNavigator} options={{ title: "Home" }} />
     </Stack.Navigator>
   )
 }

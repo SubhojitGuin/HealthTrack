@@ -15,8 +15,10 @@ const workoutSlice = createSlice({
       state.availableWorkouts = action.payload.workouts;
       state.nutritionPlans = action.payload.nutrition;
     },
-    setUserHistoryAndPrefs: (state, action) => {
+    setUserWorkoutHistory: (state, action) => {
       state.history = action.payload.history;
+    },
+    setUserPreference: (state, action) => {
       state.userPreference = action.payload.preference;
     },
     logNewWorkout: (state, action) => {
@@ -25,5 +27,5 @@ const workoutSlice = createSlice({
   },
 });
 
-export const { setFitnessData, setUserHistoryAndPrefs, logNewWorkout } = workoutSlice.actions;
+export const { setFitnessData, setUserWorkoutHistory, setUserPreference, logNewWorkout } = workoutSlice.actions;
 export default workoutSlice.reducer;
