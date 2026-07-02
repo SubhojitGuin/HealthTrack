@@ -21,17 +21,15 @@ fitnessApi.interceptors.request.use(
 );
 
 export const loginUser = async (email, password) => {
-  try {
-    const response = await fitnessApi.get("/users", { params: { email, password } });
-    if (response.data.length > 0) {
-      return response.data[0];
-    } else {
-      throw new Error("Invalid email or password");
-    }
-  } catch (error) {
-    console.error("Login error:", error);
-    throw error;
+  const response = await fitnessApi.get("/users", {
+    params: { email },
+  });
+
+  const user = response.data.find((u) => u.password === password);
+  if (!user) {
+    throw new Error("Invalid email or password");
   }
+  return user;
 };
 
 export const signupUser = async (userData) => {
@@ -40,6 +38,36 @@ export const signupUser = async (userData) => {
     return response.data;
   } catch (error) {
     console.error("Signup error:", error);
+    throw error;
+  }
+};
+
+export const fetchWorkoutHistory = async (userId) => {
+  try {
+    const response = await fitnessApi.get(`/workoutHistory`, { params: { userId } });
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching workout history:", error);
+    throw error;
+  }
+};
+
+export const fetchAvailableWorkouts = async () => {
+  try {
+    const response = await fitnessApi.get("/workouts");
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching available workouts:", error);
+    throw error;
+  }
+};
+
+export const fetchUserPreference = async (userId) => {
+  try {
+    const response = await fitnessApi.get(`/preferences`, { params: { userId } });
+    return response.data.length > 0 ? response.data[0] : null;
+  } catch (error) {
+    console.error("Error fetching user preference:", error);
     throw error;
   }
 };

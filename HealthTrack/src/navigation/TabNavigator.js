@@ -11,9 +11,9 @@ const Tab = createBottomTabNavigator();
 const TabNavigator = () => {
   return (
     <Tab.Navigator>
-      <Tab.Screen name={DASHBOARD_SCREEN} component={DashboardScreen} />
-      <Tab.Screen name={WORKOUT_SCREEN} component={WorkoutScreen} />
-      <Tab.Screen name={PROFILE_SCREEN} component={ProfileScreen} />
+      <Tab.Screen name={DASHBOARD_SCREEN} component={DashboardScreen} options={{ title: "Dashboard" }} />
+      <Tab.Screen name={WORKOUT_SCREEN} component={WorkoutScreen} options={{ title: "Workouts" }} />
+      <Tab.Screen name={PROFILE_SCREEN} component={ProfileScreen} options={{ title: "Profile" }} />
     </Tab.Navigator>
   )
 }
