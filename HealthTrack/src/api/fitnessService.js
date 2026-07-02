@@ -70,15 +70,4 @@ export const fetchUserPreference = async (userId) => {
     console.error("Error fetching user preference:", error);
     throw error;
   }
-  return user;
-};
-
-export const signupUser = async (userData) => {
-  try {
-    const response = await fitnessApi.post("/users", userData);
-    return response.data;
-  } catch (error) {
-    console.error("Signup error:", error);
-    throw error;
-  }
 };
