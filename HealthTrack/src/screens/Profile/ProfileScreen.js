@@ -28,6 +28,9 @@ import {
   NUTRIENTS_SCREEN,
 } from "../../navigation/routes";
 
+import { storageService } from "../../services/storageService";
+import { USER_STORAGE_KEY } from "../../utils/constants";
+
 export default function ProfileScreen({ navigation }) {
 
   const colors = useSelector((state) => state.theme.colors);
@@ -104,14 +107,16 @@ export default function ProfileScreen({ navigation }) {
   const pickImage = async () => {
     try {
       const imageUri = await pickImageFromGallery();
-
       if (imageUri) {
+        const updatedUser = {
+          ...user,
+          profilePhoto: imageUri,
+        };
         dispatch(updateProfilePhoto(imageUri));
-
         await fitnessApi.patch(`/users/${user.id}`, {
           profilePhoto: imageUri,
         });
-
+        await storageService.setItem(USER_STORAGE_KEY, updatedUser);
         getProfileData();
       }
     } catch (error) {
@@ -122,16 +127,16 @@ export default function ProfileScreen({ navigation }) {
   const takePhoto = async () => {
     try {
       const imageUri = await pickImageFromCamera();
-
-      console.log("Camera URI:", imageUri);
-
       if (imageUri) {
+        const updatedUser = {
+          ...user,
+          profilePhoto: imageUri,
+        };
         dispatch(updateProfilePhoto(imageUri));
-
         await fitnessApi.patch(`/users/${user.id}`, {
           profilePhoto: imageUri,
         });
-
+        await storageService.setItem(USER_STORAGE_KEY, updatedUser);
         getProfileData();
       }
     } catch (error) {
