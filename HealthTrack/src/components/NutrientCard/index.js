@@ -1,7 +1,12 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
+import { useSelector } from 'react-redux';
 
 const NutrientCard = ({ nutrient }) => {
+
+  const colors = useSelector((state) => state.theme.colors);
+  const styles = getStyles(colors);
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{nutrient.meal}</Text>
@@ -20,13 +25,13 @@ const NutrientCard = ({ nutrient }) => {
 
 export default NutrientCard
 
-const styles = StyleSheet.create({
+const getStyles = (colors) => StyleSheet.create({
   container: {
     padding: 20,
-    backgroundColor: '#fff',
+    backgroundColor: colors.surface,
     borderRadius: 10,
     marginBottom: 10,
-    shadowColor: '#000',
+    shadowColor: colors.shadow,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 5,
@@ -36,10 +41,11 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     marginBottom: 5,
+    color: colors.text,
   },
   type: {
     fontSize: 12,
-    color: '#666',
+    color: colors.textSecondary,
   },
   nutrientInfoContainer: {
     flexDirection: 'row',
@@ -48,6 +54,6 @@ const styles = StyleSheet.create({
   },
   nutrientInfo: {
     fontSize: 12,
-    color: '#333',
+    color: colors.text,
   },
 })

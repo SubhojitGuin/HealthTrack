@@ -14,6 +14,8 @@ import { fitnessApi } from "../../api/fitnessService";
 import { useDispatch, useSelector } from "react-redux";
 import { logNewWorkout } from "../../store/slices/workoutSlice";
 
+import Input from "../../components/Input";
+
 import {
   DASHBOARD_SCREEN,
   NUTRIENTS_SCREEN,
@@ -21,6 +23,10 @@ import {
 } from "../../navigation/routes";
 
 export default function WorkoutScreen({ navigation }) {
+
+  const colors = useSelector((state) => state.theme.colors);
+  const styles = getStyles(colors);
+
   const { user } = useSelector((state) => state.auth);
 
   const [workouts, setWorkouts] = useState([]);
@@ -131,15 +137,11 @@ export default function WorkoutScreen({ navigation }) {
         }}
         ListHeaderComponent={
           <>
-            <View style={styles.searchContainer}>
-              <TextInput
-                style={styles.searchInput}
-                placeholder="Search workout..."
-                value={search}
-                onChangeText={searchWorkout}
-              />
-            </View>
-
+            <Input
+              placeholder="Search workout..."
+              value={search}
+              onChangeText={searchWorkout}
+            />
             <FlatList
               data={levels}
               horizontal
@@ -241,14 +243,14 @@ export default function WorkoutScreen({ navigation }) {
   );
 }
 
-const styles = StyleSheet.create({
+const getStyles = (colors) => StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#F5F7FA",
+    backgroundColor: colors.background,
   },
 
   header: {
-    backgroundColor: "#fff",
+    backgroundColor: colors.surface,
     paddingTop: 55,
     paddingBottom: 20,
     alignItems: "center",
@@ -261,7 +263,7 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontSize: 24,
     fontWeight: "700",
-    color: "#222",
+    color: colors.text,
   },
 
   searchContainer: {
@@ -270,7 +272,7 @@ const styles = StyleSheet.create({
   },
 
   searchInput: {
-    backgroundColor: "#fff",
+    backgroundColor: colors.surface,
     borderRadius: 15,
     paddingHorizontal: 18,
     height: 50,
@@ -284,7 +286,7 @@ const styles = StyleSheet.create({
   },
 
   filterButton: {
-    backgroundColor: "#fff",
+    backgroundColor: colors.surface,
     paddingHorizontal: 18,
     paddingVertical: 10,
     borderRadius: 20,
@@ -293,20 +295,20 @@ const styles = StyleSheet.create({
   },
 
   activeFilterButton: {
-    backgroundColor: "#4F8EF7",
+    backgroundColor: colors.primary,
   },
 
   filterText: {
-    color: "#555",
+    color: colors.textSecondary,
     fontWeight: "600",
   },
 
   activeFilterText: {
-    color: "#fff",
+    color: colors.textOnPrimary,
   },
 
   workoutCard: {
-    backgroundColor: "#fff",
+    backgroundColor: colors.surface,
     borderRadius: 18,
     padding: 18,
     marginBottom: 18,
@@ -316,12 +318,12 @@ const styles = StyleSheet.create({
   workoutName: {
     fontSize: 19,
     fontWeight: "700",
-    color: "#222",
+    color: colors.text,
     marginBottom: 8,
   },
 
   description: {
-    color: "#666",
+    color: colors.textSecondary,
     fontSize: 14,
     lineHeight: 20,
     marginBottom: 15,
@@ -335,39 +337,39 @@ const styles = StyleSheet.create({
   },
 
   infoText: {
-    color: "#555",
+    color: colors.textSecondary,
     fontSize: 15,
   },
 
   goal: {
-    color: "#4F8EF7",
+    color: colors.primary,
     fontWeight: "600",
     fontSize: 14,
   },
 
   levelBadge: {
-    backgroundColor: "#EAF2FF",
+    backgroundColor: colors.surface,
     paddingHorizontal: 12,
     paddingVertical: 6,
     borderRadius: 15,
   },
 
   levelText: {
-    color: "#4F8EF7",
+    color: colors.primary,
     fontWeight: "700",
     fontSize: 13,
   },
 
   startButton: {
     marginTop: 8,
-    backgroundColor: "#4F8EF7",
+    backgroundColor: colors.primary,
     borderRadius: 12,
     alignItems: "center",
     paddingVertical: 14,
   },
 
   startButtonText: {
-    color: "#fff",
+    color: colors.textOnPrimary,
     fontWeight: "700",
     fontSize: 16,
   },
@@ -379,11 +381,11 @@ const styles = StyleSheet.create({
 
   emptyText: {
     fontSize: 16,
-    color: "#888",
+    color: colors.textSecondary,
   },
 
   navigationCard: {
-    backgroundColor: "#fff",
+    backgroundColor: colors.surface,
     borderRadius: 18,
     padding: 20,
     marginTop: 10,
@@ -391,7 +393,7 @@ const styles = StyleSheet.create({
   },
 
   navButton: {
-    backgroundColor: "#4F8EF7",
+    backgroundColor: colors.primary,
     paddingVertical: 14,
     borderRadius: 12,
     marginBottom: 12,
@@ -399,7 +401,7 @@ const styles = StyleSheet.create({
   },
 
   navButtonText: {
-    color: "#fff",
+    color: colors.textOnPrimary,
     fontSize: 16,
     fontWeight: "600",
   },
@@ -407,7 +409,7 @@ const styles = StyleSheet.create({
   headerText: {
     fontSize: 20,
     fontWeight: "700",
-    color: "#222",
+    color: colors.text,
     marginBottom: 18,
   },
 });

@@ -1,7 +1,13 @@
 import React from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
+import { useSelector } from "react-redux";
 
 export default function AboutScreen() {
+
+  const colors = useSelector((state) => state.theme.colors);
+  const styles = getStyles(colors);
+
+
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       <View style={styles.header}>
@@ -56,14 +62,13 @@ export default function AboutScreen() {
   );
 }
 
-const styles = StyleSheet.create({
+const getStyles = (colors) => StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#F5F7FA",
+    backgroundColor: colors.background,
   },
-
   header: {
-    backgroundColor: "#fff",
+    backgroundColor: colors.surface,
     paddingTop: 55,
     paddingBottom: 20,
     alignItems: "center",
@@ -75,11 +80,11 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontSize: 24,
     fontWeight: "700",
-    color: "#222",
+    color: colors.text,
   },
 
   card: {
-    backgroundColor: "#fff",
+    backgroundColor: colors.surface,
     marginHorizontal: 20,
     marginTop: 20,
     borderRadius: 18,
@@ -90,7 +95,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: "700",
-    color: "#4F8EF7",
+    color: colors.primary,
     marginBottom: 12,
     textAlign: "center",
   },
@@ -98,25 +103,25 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 20,
     fontWeight: "700",
-    color: "#222",
+    color: colors.text,
     marginBottom: 15,
   },
 
   description: {
     fontSize: 15,
-    color: "#666",
+    color: colors.textSecondary,
     lineHeight: 24,
   },
 
   feature: {
     fontSize: 16,
-    color: "#555",
+    color: colors.text,
     marginBottom: 10,
   },
 
   info: {
     fontSize: 16,
-    color: "#555",
+    color: colors.text,
     marginBottom: 10,
   },
 
@@ -126,7 +131,7 @@ const styles = StyleSheet.create({
   },
 
   footerText: {
-    color: "#777",
+    color: colors.textSecondary,
     fontSize: 14,
     marginBottom: 5,
   },

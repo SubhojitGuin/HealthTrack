@@ -1,7 +1,11 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
+import { useSelector } from 'react-redux';
 
 const SummaryCard = ({ title, value }) => {
+
+  const colors = useSelector((state) => state.theme.colors);
+  const styles = getStyles(colors);
   return (
     <View style={styles.container}>
       <Text style={styles.value}>{value}</Text>
@@ -12,13 +16,13 @@ const SummaryCard = ({ title, value }) => {
 
 export default SummaryCard
 
-const styles = StyleSheet.create({
+const getStyles = (colors) => StyleSheet.create({
   container: {
     padding: 14,
-    backgroundColor: '#fff',
+    backgroundColor: colors.surface,
     borderRadius: 10,
     marginBottom: 20,
-    shadowColor: '#000',
+    shadowColor: colors.shadow,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 5,
@@ -29,9 +33,10 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     marginBottom: 5,
+    color: colors.text,
   },
   title: {
     fontSize: 12,
-    color: '#666',
+    color: colors.textSecondary,
   },
 })
