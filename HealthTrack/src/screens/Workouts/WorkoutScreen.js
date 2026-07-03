@@ -14,7 +14,13 @@ import { fitnessApi } from "../../api/fitnessService";
 import { useDispatch, useSelector } from "react-redux";
 import { logNewWorkout } from "../../store/slices/workoutSlice";
 
-export default function WorkoutScreen() {
+import {
+  DASHBOARD_SCREEN,
+  NUTRIENTS_SCREEN,
+  PROFILE_SCREEN,
+} from "../../navigation/routes";
+
+export default function WorkoutScreen({ navigation }) {
   const { user } = useSelector((state) => state.auth);
 
   const [workouts, setWorkouts] = useState([]);
@@ -22,7 +28,6 @@ export default function WorkoutScreen() {
   const [search, setSearch] = useState("");
   const [selectedLevel, setSelectedLevel] = useState("All");
 
-  // ✅ NEW STATE (tracks clicked workouts)
   const [startedWorkouts, setStartedWorkouts] = useState([]);
 
   const dispatch = useDispatch();
@@ -112,7 +117,6 @@ export default function WorkoutScreen() {
 
   return (
     <View style={styles.container}>
-      {/* Header */}
       <View style={styles.header}>
         <Text style={styles.headerTitle}>Workouts</Text>
       </View>
@@ -127,7 +131,6 @@ export default function WorkoutScreen() {
         }}
         ListHeaderComponent={
           <>
-            {/* Search */}
             <View style={styles.searchContainer}>
               <TextInput
                 style={styles.searchInput}
@@ -137,7 +140,6 @@ export default function WorkoutScreen() {
               />
             </View>
 
-            {/* Filters */}
             <FlatList
               data={levels}
               horizontal
@@ -188,7 +190,6 @@ export default function WorkoutScreen() {
                 </View>
               </View>
 
-              {/* ✅ BUTTON LOGIC UPDATED */}
               <TouchableOpacity
                 style={[
                   styles.startButton,
@@ -207,6 +208,32 @@ export default function WorkoutScreen() {
         ListEmptyComponent={
           <View style={styles.emptyContainer}>
             <Text style={styles.emptyText}>No workouts found.</Text>
+          </View>
+        }
+        ListFooterComponent={
+          <View style={styles.navigationCard}>
+            <Text style={styles.headerText}>Quick Navigation</Text>
+
+            <TouchableOpacity
+              style={styles.navButton}
+              onPress={() => navigation.navigate(DASHBOARD_SCREEN)}
+            >
+              <Text style={styles.navButtonText}>Dashboard</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={styles.navButton}
+              onPress={() => navigation.navigate(NUTRIENTS_SCREEN)}
+            >
+              <Text style={styles.navButtonText}>Nutrients</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={styles.navButton}
+              onPress={() => navigation.navigate(PROFILE_SCREEN)}
+            >
+              <Text style={styles.navButtonText}>Profile</Text>
+            </TouchableOpacity>
           </View>
         }
       />
@@ -353,5 +380,34 @@ const styles = StyleSheet.create({
   emptyText: {
     fontSize: 16,
     color: "#888",
+  },
+
+  navigationCard: {
+    backgroundColor: "#fff",
+    borderRadius: 18,
+    padding: 20,
+    marginTop: 10,
+    elevation: 3,
+  },
+
+  navButton: {
+    backgroundColor: "#4F8EF7",
+    paddingVertical: 14,
+    borderRadius: 12,
+    marginBottom: 12,
+    alignItems: "center",
+  },
+
+  navButtonText: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "600",
+  },
+
+  headerText: {
+    fontSize: 20,
+    fontWeight: "700",
+    color: "#222",
+    marginBottom: 18,
   },
 });

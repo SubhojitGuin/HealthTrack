@@ -326,10 +326,22 @@
       "distanceKm": 5.2,
       "durationMinutes": 28,
       "routeCoordinates": [
-        { "latitude": 22.5726, "longitude": 88.3639 },
-        { "latitude": 22.5740, "longitude": 88.3650 },
-        { "latitude": 22.5760, "longitude": 88.3670 },
-        { "latitude": 22.5785, "longitude": 88.3695 }
+        {
+          "latitude": 22.5726,
+          "longitude": 88.3639
+        },
+        {
+          "latitude": 22.574,
+          "longitude": 88.365
+        },
+        {
+          "latitude": 22.576,
+          "longitude": 88.367
+        },
+        {
+          "latitude": 22.5785,
+          "longitude": 88.3695
+        }
       ]
     },
     {
@@ -339,21 +351,39 @@
       "distanceKm": 4.8,
       "durationMinutes": 26,
       "routeCoordinates": [
-        { "latitude": 22.5320, "longitude": 88.3420 },
-        { "latitude": 22.5350, "longitude": 88.3450 },
-        { "latitude": 22.5410, "longitude": 88.3490 }
+        {
+          "latitude": 22.532,
+          "longitude": 88.342
+        },
+        {
+          "latitude": 22.535,
+          "longitude": 88.345
+        },
+        {
+          "latitude": 22.541,
+          "longitude": 88.349
+        }
       ]
     },
     {
       "id": "r3",
       "userId": "3",
       "date": "2026-06-29",
-      "distanceKm": 8.0,
+      "distanceKm": 8,
       "durationMinutes": 42,
       "routeCoordinates": [
-        { "latitude": 22.5800, "longitude": 88.3700 },
-        { "latitude": 22.5850, "longitude": 88.3750 },
-        { "latitude": 22.5910, "longitude": 88.3810 }
+        {
+          "latitude": 22.58,
+          "longitude": 88.37
+        },
+        {
+          "latitude": 22.585,
+          "longitude": 88.375
+        },
+        {
+          "latitude": 22.591,
+          "longitude": 88.381
+        }
       ]
     }
   ],
