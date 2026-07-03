@@ -17,6 +17,9 @@ const GOALS = [
 
 export default function SettingsScreen() {
 
+  const colors = useSelector((state) => state.theme.colors);
+  const styles = getStyles(colors);
+
   const user = useSelector((state) => state.auth.user);
   const preferences = useSelector((state) => state.workout.userPreferences);
   const theme = useSelector((state) => state.theme.mode);
@@ -68,17 +71,28 @@ export default function SettingsScreen() {
           <Text style={styles.settingText}>Dark Mode</Text>
           <Switch value={theme === 'dark'} onValueChange={changeTheme} />
         </View>
-        <View style={styles.settingRow}>
+        
+        <View style={styles.pickerRow}>
           <Text style={styles.settingText}>Goal</Text>
-          <Picker
-            selectedValue={preferences.goal}
-            onValueChange={changeGoal}
-            style={styles.picker}
-          >
-            {GOALS.map((goal) => (
-              <Picker.Item key={goal} label={goal} value={goal} />
-            ))}
-          </Picker>
+          <View style={styles.pickerContainer}>
+            <Picker
+              selectedValue={preferences.goal}
+              onValueChange={changeGoal}
+              style={styles.picker}
+              dropdownIconColor={colors.textSecondary}
+              itemStyle={{ color: colors.text, fontSize: 16 }}
+            >
+              {GOALS.map((goal) => (
+                <Picker.Item 
+                  key={goal} 
+                  label={goal} 
+                  value={goal} 
+                  color={colors.text}
+                  style={{ backgroundColor: colors.card }}
+                />
+              ))}
+            </Picker>
+          </View>
         </View>
       </View>
 
@@ -96,18 +110,18 @@ export default function SettingsScreen() {
   )
 }
 
-const styles = StyleSheet.create({
+const getStyles = (colors) => StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 20, 
-    backgroundColor: '#f5f5f5',
+    backgroundColor: colors.background,
   },
   card: {
-    backgroundColor: '#fff',
+    backgroundColor: colors.card,
     borderRadius: 10,
     padding: 20,
     marginBottom: 20,
-    shadowColor: '#000',
+    shadowColor: colors.shadow,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 5,
@@ -117,21 +131,42 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 10,
+    color: colors.text,
   },
   text: {
     fontSize: 16,
     marginBottom: 5,
+    color: colors.text,
   },
   settingRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 4,
+    height: 48,
+  },
+  pickerRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: 8,
   },
   settingText: {
     fontSize: 16,
+    color: colors.text,
+  },
+  pickerContainer: {
+    borderWidth: 1,
+    borderColor: colors.border,
+    borderRadius: 8,
+    backgroundColor: colors.background,
+    overflow: 'hidden',
+    width: 160,
+    height: 44,
+    justifyContent: 'center',
   },
   picker: {
-    width: 170,
+    width: '100%',
+    color: colors.text,
+    backgroundColor: 'transparent',
   }
 })

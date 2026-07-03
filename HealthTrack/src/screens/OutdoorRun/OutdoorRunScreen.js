@@ -6,9 +6,12 @@ import { fetchOutdoorRunData } from '../../api/fitnessService';
 import Loader from '../../components/Loader';
 import MapView, { Marker, Polyline } from 'react-native-maps'; 
 import FilterButton from '../../components/FilterButton';
+import { darkMapStyle } from '../../styles/colors';
 
 export default function OutdoorRunScreen() {
 
+  const colors = useSelector((state) => state.theme.colors);
+  const styles = getStyles(colors);
   const user = useSelector((state) => state.auth.user);
   const [ outdoorRuns, setOutdoorRuns ] = React.useState([]);
   const [ isLoading, setIsLoading ] = React.useState(true);
@@ -108,6 +111,8 @@ export default function OutdoorRunScreen() {
         ref={mapRef}
         style={styles.map}
         initialRegion={initialRegion}
+        userInterfaceStyle={colors.mode}
+        customMapStyle={mapStyle(colors)}
       >
         {validCoordinates.length > 0 && (
           <Marker
@@ -183,10 +188,14 @@ export default function OutdoorRunScreen() {
   )
 }
 
-const styles = StyleSheet.create({
+const mapStyle = (colors) => (colors.mode === 'light') 
+  ? []
+  : darkMapStyle;
+
+const getStyles = (colors) => StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff'
+    backgroundColor: colors.background
   },
   noInfoContainer: {
     flex: 1,
@@ -202,11 +211,11 @@ const styles = StyleSheet.create({
     bottom: 30, 
     left: 20,
     right: 20,
-    backgroundColor: '#fff',
+    backgroundColor: colors.background,
     borderRadius: 16,
     paddingVertical: 15,
     paddingHorizontal: 10,
-    shadowColor: '#000',
+    shadowColor: colors.shadow,
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.15,
     shadowRadius: 8,
@@ -224,7 +233,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     borderTopWidth: 1,
-    borderColor: '#f0f0f0',
+    borderColor: colors.border,
     paddingTop: 12,
     marginHorizontal: 5,
   },
@@ -234,12 +243,12 @@ const styles = StyleSheet.create({
   },
   statLabel: {
     fontSize: 12,
-    color: '#888',
+    color: colors.textSecondary,
     marginBottom: 4,
   },
   statValue: {
     fontSize: 14,
     fontWeight: 'bold',
-    color: '#222',
+    color: colors.text,
   },
 })

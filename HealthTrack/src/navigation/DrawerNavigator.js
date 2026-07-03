@@ -9,7 +9,7 @@ import {
 import TabNavigator from './TabNavigator';
 import SettingsScreen from '../screens/Settings/SettingsScreen';
 import AboutScreen from '../screens/About/AboutScreen';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../store/slices/authSlice';
 import { tokenManager } from '../utils/tokenManager';
 import { storageService } from '../services/storageService';
@@ -18,7 +18,8 @@ import { ABOUT_SCREEN, LOGIN_SCREEN, SETTINGS_SCREEN, TAB_NAVIGATOR } from './ro
 const Drawer = createDrawerNavigator();
 
 const CustomDrawerContent = (props) => {
-
+  const colors = useSelector((state) => state.theme.colors);
+  const styles = getStyles(colors);
   const dispatch = useDispatch();
 
   const handleLogout = async () => {
@@ -36,7 +37,11 @@ const CustomDrawerContent = (props) => {
   };
 
   return (
-    <DrawerContentScrollView {...props} contentContainerStyle={styles.container}>
+    <DrawerContentScrollView 
+      {...props} 
+      contentContainerStyle={styles.container}
+      style={{ backgroundColor: colors.surface }}
+    >
       <View style={styles.mainItems}>
         <DrawerItemList {...props} />
       </View>
@@ -45,14 +50,35 @@ const CustomDrawerContent = (props) => {
         label="Logout"
         onPress={handleLogout}
         labelStyle={styles.logoutLabel}
+        style={styles.logoutItem}
       />
     </DrawerContentScrollView>
   );
 };
 
 const DrawerNavigator = () => {
+  const colors = useSelector((state) => state.theme.colors);
+
   return (
-    <Drawer.Navigator drawerContent={(props) => <CustomDrawerContent {...props} />} initialRouteName={TAB_NAVIGATOR}>
+    <Drawer.Navigator 
+      drawerContent={(props) => <CustomDrawerContent {...props} />} 
+      initialRouteName={TAB_NAVIGATOR}
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: colors.surface,
+          elevation: 2,
+          shadowOpacity: 0.1,
+        },
+        headerTintColor: colors.text,
+        drawerActiveBackgroundColor: colors.divider, 
+        drawerActiveTintColor: colors.primary, 
+        drawerInactiveTintColor: colors.textSecondary, 
+        drawerLabelStyle: {
+          fontSize: 16,
+          fontWeight: '500',
+        }
+      }}
+    >
       <Drawer.Screen name={TAB_NAVIGATOR} component={TabNavigator} options={{ title: "Home" }} />
       <Drawer.Screen name={SETTINGS_SCREEN} component={SettingsScreen} options={{ title: "Settings" }} />
       <Drawer.Screen name={ABOUT_SCREEN} component={AboutScreen} options={{ title: "About" }} />
@@ -60,7 +86,7 @@ const DrawerNavigator = () => {
   )
 }
 
-const styles = StyleSheet.create({
+const getStyles = (colors) => StyleSheet.create({
   container: {
     flexGrow: 1,
     justifyContent: 'space-between',
@@ -68,10 +94,18 @@ const styles = StyleSheet.create({
   },
   mainItems: {
     flex: 1,
+    paddingTop: 10,
+  },
+  logoutItem: {
+    borderTopWidth: 1,
+    borderTopColor: colors.divider,
+    marginTop: 10,
+    borderRadius: 8,
   },
   logoutLabel: {
-    color: 'red',
+    color: colors.danger,
     fontWeight: 'bold',
+    fontSize: 16,
   },
 });
 

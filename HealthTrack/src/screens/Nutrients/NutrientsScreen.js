@@ -21,6 +21,8 @@ const nutritionPlanTypes = [
 ];
 
 const ScreenHeader = ({ searchQuery, setSearchQuery, selectedPlanType, handlePlanTypeChange }) => {
+  const colors = useSelector((state) => state.theme.colors);
+  const styles = getStyles(colors);
   return (
     <View style={styles.headerContainer}>
       <SectionHeader text="Nutrient Plans" subtitle="Track your daily meals" />
@@ -50,6 +52,10 @@ const ScreenHeader = ({ searchQuery, setSearchQuery, selectedPlanType, handlePla
 };
 
 export default function NutrientsScreen({ navigation }) {
+  
+  const colors = useSelector((state) => state.theme.colors);
+  const styles = getStyles(colors);
+
   const dispatch = useDispatch();
   
   const storeNutritionPlans = useSelector((state) => state.workout.nutritionPlans) || [];
@@ -131,14 +137,14 @@ export default function NutrientsScreen({ navigation }) {
   )
 }
 
-const styles = StyleSheet.create({
+const getStyles = (colors) => StyleSheet.create({
   keyboardContainer: {
     flex: 1,
   },
   container: {
     flex: 1,
     paddingHorizontal: 20, 
-    backgroundColor: '#f5f5f5',
+    backgroundColor: colors.background,
   },
   headerContainer: {
     marginTop: 10,
@@ -157,5 +163,6 @@ const styles = StyleSheet.create({
   emptyText: {
     textAlign: 'center',
     marginVertical: 10,
+    color: colors.textSecondary,
   }
 })

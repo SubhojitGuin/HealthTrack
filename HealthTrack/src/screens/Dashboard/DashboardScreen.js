@@ -14,6 +14,9 @@ import Loader from '../../components/Loader';
 
 export default function DashboardScreen({ navigation }) {
 
+  const colors = useSelector((state) => state.theme.colors);
+  const styles = getStyles(colors);
+
   const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
 
@@ -151,11 +154,11 @@ export default function DashboardScreen({ navigation }) {
   )
 }
 
-const styles = StyleSheet.create({
+const getStyles = (colors) => StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 20, 
-    backgroundColor: '#f5f5f5',
+    backgroundColor: colors.background,
   },
   headerContainer: {
     marginTop: 10,
@@ -176,5 +179,6 @@ const styles = StyleSheet.create({
   emptyText: {
     textAlign: 'center',
     marginVertical: 10,
+    color: colors.textSecondary,
   }
 })

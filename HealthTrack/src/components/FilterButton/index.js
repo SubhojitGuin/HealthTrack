@@ -1,7 +1,12 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
+import { useSelector } from 'react-redux';
 
 const FilterButton = ({ item, isSelected, onPress }) => {
+
+  const colors = useSelector((state) => state.theme.colors);
+  const styles = getStyles(colors);
+
   return (
     <TouchableOpacity 
       style={[ styles.filterButton, isSelected && styles.activeFilterButton ]}
@@ -16,9 +21,9 @@ const FilterButton = ({ item, isSelected, onPress }) => {
 
 export default FilterButton
 
-const styles = StyleSheet.create({
+const getStyles = (colors) => StyleSheet.create({
   filterButton: {
-    backgroundColor: "#fff",
+    backgroundColor: colors.surface,
     paddingHorizontal: 18,
     paddingVertical: 10,
     borderRadius: 20,
@@ -27,13 +32,13 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
   filterText: {
-    color: "#000",
+    color: colors.text,
     fontWeight: "bold",
   },
   activeFilterButton: {
-    backgroundColor: "#007AFF",
+    backgroundColor: colors.primary,
   },
   activeFilterText: {
-    color: "#fff",
+    color: colors.textOnPrimary,
   },
 })

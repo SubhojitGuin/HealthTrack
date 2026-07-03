@@ -1,7 +1,12 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
+import { useSelector } from 'react-redux';
 
 const WelcomeCard = ({ name }) => {
+
+  const colors = useSelector((state) => state.theme.colors);
+  const styles = getStyles(colors);
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Welcome, {name}! 👋</Text>
@@ -12,10 +17,10 @@ const WelcomeCard = ({ name }) => {
 
 export default WelcomeCard
 
-const styles = StyleSheet.create({
+const getStyles = (colors) => StyleSheet.create({
   container: {
     padding: 20,
-    backgroundColor: '#7822ce',
+    backgroundColor: colors.welcomeCard,
     borderRadius: 10,
     marginBottom: 20,
   },
@@ -23,10 +28,10 @@ const styles = StyleSheet.create({
     fontSize: 22,
     fontWeight: 'bold',
     marginBottom: 10,
-    color: '#fff',
+    color: colors.welcomeCardText,
   },
   subtitle: {
     fontSize: 14,
-    color: '#fff',
+    color: colors.welcomeCardText,
   },
 })

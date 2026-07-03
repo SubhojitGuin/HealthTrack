@@ -29,6 +29,10 @@ import {
 } from "../../navigation/routes";
 
 export default function ProfileScreen({ navigation }) {
+
+  const colors = useSelector((state) => state.theme.colors);
+  const styles = getStyles(colors);
+
   const dispatch = useDispatch();
 
   const { user, profilePhoto } = useSelector((state) => state.auth);
@@ -277,17 +281,17 @@ export default function ProfileScreen({ navigation }) {
   );
 }
 
-const styles = StyleSheet.create({
+const getStyles = (colors) => StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#F5F7FA",
+    backgroundColor: colors.background,
   },
 
   header: {
     paddingTop: 55,
     paddingBottom: 20,
     alignItems: "center",
-    backgroundColor: "#fff",
+    backgroundColor: colors.surface,
     borderBottomLeftRadius: 25,
     borderBottomRightRadius: 25,
     elevation: 3,
@@ -296,11 +300,11 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontSize: 24,
     fontWeight: "700",
-    color: "#222",
+    color: colors.text,
   },
 
   profileCard: {
-    backgroundColor: "#fff",
+    backgroundColor: colors.surface,
     marginHorizontal: 20,
     marginTop: 20,
     borderRadius: 20,
@@ -314,7 +318,7 @@ const styles = StyleSheet.create({
     height: 120,
     borderRadius: 60,
     borderWidth: 4,
-    borderColor: "#4F8EF7",
+    borderColor: colors.primary,
   },
 
   buttonRow: {
@@ -323,7 +327,7 @@ const styles = StyleSheet.create({
   },
 
   imageBtn: {
-    backgroundColor: "#4F8EF7",
+    backgroundColor: colors.primary,
     paddingHorizontal: 18,
     paddingVertical: 10,
     borderRadius: 12,
@@ -331,7 +335,7 @@ const styles = StyleSheet.create({
   },
 
   imageBtnText: {
-    color: "#fff",
+    color: colors.textOnPrimary,
     fontWeight: "600",
     fontSize: 15,
   },
@@ -340,13 +344,13 @@ const styles = StyleSheet.create({
     marginTop: 18,
     fontSize: 24,
     fontWeight: "700",
-    color: "#222",
+    color: colors.text,
   },
 
   email: {
     marginTop: 6,
     fontSize: 15,
-    color: "#777",
+    color: colors.textSecondary,
   },
 
   statsContainer: {
@@ -358,7 +362,7 @@ const styles = StyleSheet.create({
 
   statCard: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: colors.surface,
     marginHorizontal: 5,
     borderRadius: 18,
     paddingVertical: 18,
@@ -369,17 +373,17 @@ const styles = StyleSheet.create({
   statValue: {
     fontSize: 22,
     fontWeight: "700",
-    color: "#4F8EF7",
+    color: colors.primary,
   },
 
   statTitle: {
     marginTop: 6,
     fontSize: 14,
-    color: "#666",
+    color: colors.textSecondary,
   },
 
   summaryCard: {
-    backgroundColor: "#fff",
+    backgroundColor: colors.surface,
     marginHorizontal: 20,
     marginTop: 25,
     borderRadius: 18,
@@ -391,7 +395,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "700",
     marginBottom: 18,
-    color: "#222",
+    color: colors.text,
   },
 
   summaryRow: {
@@ -402,13 +406,13 @@ const styles = StyleSheet.create({
 
   summaryTitle: {
     fontSize: 16,
-    color: "#666",
+    color: colors.textSecondary,
   },
 
   summaryValue: {
     fontSize: 16,
     fontWeight: "700",
-    color: "#222",
+    color: colors.text,
   },
 
   sectionTitle: {
@@ -417,11 +421,11 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
     marginTop: 28,
     marginBottom: 15,
-    color: "#222",
+    color: colors.text,
   },
 
   historyCard: {
-    backgroundColor: "#fff",
+    backgroundColor: colors.surface,
     marginHorizontal: 20,
     marginBottom: 15,
     borderRadius: 18,
@@ -432,18 +436,18 @@ const styles = StyleSheet.create({
   historyTitle: {
     fontSize: 17,
     fontWeight: "700",
-    color: "#222",
+    color: colors.text,
     marginBottom: 10,
   },
 
   historyText: {
     fontSize: 15,
-    color: "#666",
+    color: colors.textSecondary,
     marginBottom: 5,
   },
 
   navigationCard: {
-    backgroundColor: "#fff",
+    backgroundColor: colors.surface,
     marginHorizontal: 20,
     marginTop: 25,
     borderRadius: 18,
@@ -452,7 +456,7 @@ const styles = StyleSheet.create({
   },
 
   navButton: {
-    backgroundColor: "#4F8EF7",
+    backgroundColor: colors.primary,
     paddingVertical: 14,
     borderRadius: 12,
     marginBottom: 12,
@@ -460,7 +464,7 @@ const styles = StyleSheet.create({
   },
 
   navButtonText: {
-    color: "#fff",
+    color: colors.textOnPrimary,
     fontSize: 16,
     fontWeight: "600",
   },

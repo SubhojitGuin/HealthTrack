@@ -1,11 +1,16 @@
 import { ActivityIndicator, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
+import { useSelector } from 'react-redux';
 
 const Loader = ({ text }) => {
+
+  const colors = useSelector((state) => state.theme.colors);
+  const styles = getStyles(colors);  
+
   return (
     <View style={styles.container}>
       <View style={styles.box}>
-        <ActivityIndicator size="large" color="black" />
+        <ActivityIndicator size="large" color={colors.primary} />
         {text && <Text style={styles.loadingText}>{text}</Text>}
       </View>
     </View>
@@ -14,7 +19,7 @@ const Loader = ({ text }) => {
 
 export default Loader
 
-const styles = StyleSheet.create({
+const getStyles = (colors) => StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
@@ -26,12 +31,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#fff",
+    backgroundColor: colors.surface,
     borderRadius: 12,
   },
   loadingText: {
     marginTop: 10,
     fontSize: 16,
-    color: "#000",
+    color: colors.text,
   },
 });
