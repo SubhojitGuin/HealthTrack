@@ -23,7 +23,13 @@ import {
   addProgressPhoto,
 } from "../../store/slices/authSlice";
 
-export default function ProfileScreen() {
+import {
+  DASHBOARD_SCREEN,
+  WORKOUT_SCREEN,
+  NUTRIENTS_SCREEN,
+} from "../../navigation/routes";
+
+export default function ProfileScreen({ navigation }) {
   const dispatch = useDispatch();
 
   const { user, profilePhoto } = useSelector((state) => state.auth);
@@ -45,7 +51,6 @@ export default function ProfileScreen() {
 
       setUserData(userRes.data);
 
-      // ✅ FIXED: manual filtering (this is the real fix)
       const userHistory = (historyRes.data || []).filter(
         (item) => item.userId === String(user.id),
       );
@@ -86,7 +91,6 @@ export default function ProfileScreen() {
     }
   };
 
-  // ✅ refresh when screen comes into focus
   useFocusEffect(
     useCallback(() => {
       getProfileData();
@@ -132,12 +136,10 @@ export default function ProfileScreen() {
 
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-      {/* Header */}
       <View style={styles.header}>
         <Text style={styles.headerTitle}>My Profile</Text>
       </View>
 
-      {/* Profile Card */}
       <View style={styles.profileCard}>
         <Image
           source={{
@@ -163,7 +165,6 @@ export default function ProfileScreen() {
         <Text style={styles.email}>{userData.email}</Text>
       </View>
 
-      {/* Stats */}
       <View style={styles.statsContainer}>
         <View style={styles.statCard}>
           <Text style={styles.statValue}>{userData.age}</Text>
@@ -181,7 +182,6 @@ export default function ProfileScreen() {
         </View>
       </View>
 
-      {/* Summary */}
       <View style={styles.summaryCard}>
         <Text style={styles.summaryHeading}>Workout Summary</Text>
 
@@ -196,7 +196,6 @@ export default function ProfileScreen() {
         </View>
       </View>
 
-      {/* Workout History */}
       <Text style={styles.sectionTitle}>Workout History</Text>
 
       <FlatList
@@ -231,7 +230,6 @@ export default function ProfileScreen() {
         )}
       />
 
-      {/* Nutrition */}
       <Text style={styles.sectionTitle}>Nutrition</Text>
 
       <FlatList
@@ -247,6 +245,31 @@ export default function ProfileScreen() {
           </View>
         )}
       />
+
+      <View style={styles.navigationCard}>
+        <Text style={styles.summaryHeading}>Quick Navigation</Text>
+
+        <TouchableOpacity
+          style={styles.navButton}
+          onPress={() => navigation.navigate(DASHBOARD_SCREEN)}
+        >
+          <Text style={styles.navButtonText}>Dashboard</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.navButton}
+          onPress={() => navigation.navigate(WORKOUT_SCREEN)}
+        >
+          <Text style={styles.navButtonText}>Workouts</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.navButton}
+          onPress={() => navigation.navigate(NUTRIENTS_SCREEN)}
+        >
+          <Text style={styles.navButtonText}>Nutrients</Text>
+        </TouchableOpacity>
+      </View>
 
       <View style={{ height: 30 }} />
     </ScrollView>
@@ -416,5 +439,28 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: "#666",
     marginBottom: 5,
+  },
+
+  navigationCard: {
+    backgroundColor: "#fff",
+    marginHorizontal: 20,
+    marginTop: 25,
+    borderRadius: 18,
+    padding: 20,
+    elevation: 3,
+  },
+
+  navButton: {
+    backgroundColor: "#4F8EF7",
+    paddingVertical: 14,
+    borderRadius: 12,
+    marginBottom: 12,
+    alignItems: "center",
+  },
+
+  navButtonText: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "600",
   },
 });
