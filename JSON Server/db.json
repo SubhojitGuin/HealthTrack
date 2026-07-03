@@ -10,10 +10,11 @@
       "age": 25,
       "weight": 70,
       "height": 175,
-      "profilePhoto": "https://unsplash.com",
+      "profilePhoto": "file:///data/user/0/host.exp.exponent/cache/ImagePicker/c75a05ad-847f-4dea-9927-f38f6fab4d9b.jpeg",
       "progressPhotos": [
         "https://unsplash.com",
-        "https://unsplash.com"
+        "https://unsplash.com",
+        "file:///data/user/0/host.exp.exponent/cache/ImagePicker/cd116867-b00a-475b-9593-72e7318e6f30.jpeg"
       ]
     },
     {

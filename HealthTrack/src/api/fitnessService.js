@@ -83,7 +83,7 @@ export const fetchNutritionPlans = async () => {
   } catch (error) {
     console.error("Error fetching nutrition plans:", error);
     throw error;
-  } 
+  }
 };
 
 export const fetchUserPreferences = async (userId) => {
@@ -100,7 +100,10 @@ export const fetchUserPreferences = async (userId) => {
 
 export const updateUserPreferences = async (preferenceId, preferences) => {
   try {
-    const response = await fitnessApi.put(`/preferences/${preferenceId}`, preferences);
+    const response = await fitnessApi.put(
+      `/preferences/${preferenceId}`,
+      preferences,
+    );
     return response.data;
   } catch (error) {
     console.error("Error updating user preferences:", error);

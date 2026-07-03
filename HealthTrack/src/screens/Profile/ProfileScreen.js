@@ -13,13 +13,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { fitnessApi } from "../../api/fitnessService";
 import { useFocusEffect } from "@react-navigation/native";
 
-import {
-  pickImageFromGallery,
-} from "../../services/imagePickerService";
+import { pickImageFromGallery } from "../../services/imagePickerService";
 
-import {
-  pickImageFromCamera,
-} from "../../services/cameraService";
+import { pickImageFromCamera } from "../../services/cameraService";
 
 import {
   updateProfilePhoto,
@@ -123,17 +119,19 @@ export default function ProfileScreen({ navigation }) {
     try {
       const imageUri = await pickImageFromCamera();
 
+      console.log("Camera URI:", imageUri);
+
       if (imageUri) {
-        dispatch(addProgressPhoto(imageUri));
+        dispatch(updateProfilePhoto(imageUri));
 
         await fitnessApi.patch(`/users/${user.id}`, {
-          progressPhotos: [...(user.progressPhotos || []), imageUri],
+          profilePhoto: imageUri,
         });
 
         getProfileData();
       }
     } catch (error) {
-      console.log(error);
+      console.log("Camera Error:", error);
     }
   };
 
