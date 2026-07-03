@@ -15,8 +15,11 @@ import { useFocusEffect } from "@react-navigation/native";
 
 import {
   pickImageFromGallery,
-  pickImageFromCamera,
 } from "../../services/imagePickerService";
+
+import {
+  pickImageFromCamera,
+} from "../../services/cameraService";
 
 import {
   updateProfilePhoto,

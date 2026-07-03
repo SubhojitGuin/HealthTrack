@@ -117,3 +117,15 @@ export const addUserPreferences = async (preferences) => {
     throw error;
   }
 };
+
+export const fetchOutdoorRunData = async (userId) => {
+  try {
+    const response = await fitnessApi.get(`/outdoorRuns`, {
+      params: { userId },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching outdoor run data:", error);
+    throw error;
+  }
+};

@@ -10,6 +10,7 @@ import WorkoutHistoryCard from '../../components/WorkoutHistoryCard';
 import Button from '../../components/Button';
 import { PROFILE_SCREEN, WORKOUT_SCREEN } from '../../navigation/routes';
 import { useFocusEffect } from '@react-navigation/native';
+import Loader from '../../components/Loader';
 
 export default function DashboardScreen({ navigation }) {
 
@@ -19,6 +20,7 @@ export default function DashboardScreen({ navigation }) {
   const [workoutHistory, setWorkoutHistory] = React.useState(useSelector((state) => state.workout.history));
   const [workouts, setWorkouts] = React.useState(useSelector((state) => state.workout.availableWorkouts));
   const [preference, setPreference] = React.useState(useSelector((state) => state.workout.userPreference));
+  const [isLoading, setIsLoading] = React.useState(true);
 
   const getFirstName = (fullName) => {
     if (!fullName) return '';
@@ -29,30 +31,45 @@ export default function DashboardScreen({ navigation }) {
   useFocusEffect(
     React.useCallback(() => {
       let isMounted = true;
+      setIsLoading(true);
 
-      fetchAvailableWorkouts()
-        .then(data => {
-          if (isMounted) setWorkouts(data);
-        })
-        .catch(error => console.error("Failed to fetch available workouts:", error));
+      const apiPromises = [
+        fetchAvailableWorkouts()
+          .then(data => {
+            if (isMounted) setWorkouts(data);
+          })
+          .catch(error => console.error("Failed to fetch available workouts:", error)),
+      ];
 
       if (user?.id) {
-        fetchWorkoutHistory(user.id)
-          .then(history => {
-            if (isMounted) {
-              history.sort((a, b) => new Date(b.date) - new Date(a.date));
-              setWorkoutHistory(history);
-              dispatch(setUserWorkoutHistory({ history }));
-            }
-          })
-          .catch(error => console.error("Failed to fetch workout history:", error));
+        apiPromises.push(
+          fetchWorkoutHistory(user.id)
+            .then(history => {
+              if (isMounted) {
+                history.sort((a, b) => new Date(b.date) - new Date(a.date));
+                setWorkoutHistory(history);
+                dispatch(setUserWorkoutHistory({ history }));
+              }
+            })
+            .catch(error => console.error("Failed to fetch workout history:", error))
+        );
 
-        fetchUserPreference(user.id)
+        apiPromises.push(fetchUserPreference(user.id)
           .then(pref => {
             if (isMounted) setPreference(pref);
           })
-          .catch(error => console.error("Failed to fetch user preference:", error));
+          .catch(error => console.error("Failed to fetch user preference:", error))
+        );
       }
+
+      Promise.all(apiPromises)
+        .then(() => {
+          if (isMounted) setIsLoading(false);
+        })
+        .catch(error => {
+          console.error("Failed to fetch available workouts:", error);
+          if (isMounted) setIsLoading(false);
+        });
 
       return () => {
         isMounted = false;
@@ -81,6 +98,12 @@ export default function DashboardScreen({ navigation }) {
   }, [workoutHistory, workouts]);
 
   const goal = preference ? preference.goal : null;
+
+  if (isLoading) {
+    return (
+      <Loader text="Loading dashboard..." />
+    );
+  }
 
   const renderHeader = () => (
     <View style={styles.headerContainer}>

@@ -10,6 +10,7 @@ import FilterButton from '../../components/FilterButton';
 import NutrientCard from '../../components/NutrientCard';
 import Input from '../../components/Input';
 import useDebounce from '../../hooks/useDebounce';
+import Loader from '../../components/Loader';
 
 const nutritionPlanTypes = [
   { label: "All", value: "" },
@@ -56,6 +57,7 @@ export default function NutrientsScreen({ navigation }) {
   const [ selectedPlanType, setSelectedPlanType ] = React.useState("");
   const [ searchQuery, setSearchQuery ] = React.useState(""); 
   const [ filteredNutrients, setFilteredNutrients ] = React.useState([]);
+  const [ isLoading, setIsLoading ] = React.useState(true);
 
   const debouncedSearchQuery = useDebounce(searchQuery, 400);
 
@@ -63,9 +65,13 @@ export default function NutrientsScreen({ navigation }) {
     if (storeNutritionPlans.length === 0) {
       fetchNutritionPlans().then(plans => {
         dispatch(setNutritionPlans({ plans }));
+        setIsLoading(false);
       }).catch(error => {
         console.error("Failed to fetch nutrition plans:", error);
+        setIsLoading(false);
       });
+    } else {
+      setIsLoading(false);
     }
   }, [dispatch, storeNutritionPlans.length]); 
 
@@ -82,6 +88,12 @@ export default function NutrientsScreen({ navigation }) {
   const handlePlanTypeChange = (type) => {
     setSelectedPlanType(type);
   };
+
+  if (isLoading) {
+    return (
+      <Loader text="Loading nutrient plans..." />
+    );
+  }
 
   const renderFooter = () => (
     <View style={styles.footerContainer}>

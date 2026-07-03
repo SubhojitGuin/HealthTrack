@@ -1,12 +1,12 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { ActivityIndicator, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import { ActivityIndicator } from 'react-native-web'
 
-const Loader = () => {
+const Loader = ({ text }) => {
   return (
     <View style={styles.container}>
       <View style={styles.box}>
         <ActivityIndicator size="large" color="black" />
+        {text && <Text style={styles.loadingText}>{text}</Text>}
       </View>
     </View>
   )
@@ -21,11 +21,17 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   box: {
-    width: 120,
+    minWidth: 120,
     height: 120,
+    paddingHorizontal: 15,
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#fff",
     borderRadius: 12,
+  },
+  loadingText: {
+    marginTop: 10,
+    fontSize: 16,
+    color: "#000",
   },
 });
