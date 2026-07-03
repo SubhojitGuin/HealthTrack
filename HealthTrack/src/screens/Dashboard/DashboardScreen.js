@@ -9,22 +9,16 @@ import SectionHeader from '../../components/SectionHeader';
 import WorkoutHistoryCard from '../../components/WorkoutHistoryCard';
 import Button from '../../components/Button';
 import { PROFILE_SCREEN, WORKOUT_SCREEN } from '../../navigation/routes';
+import { useFocusEffect } from '@react-navigation/native';
 
 export default function DashboardScreen({ navigation }) {
 
   const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
 
-  const [ workoutHistory, setWorkoutHistory ] = React.useState(useSelector((state) => state.workout.history));
-  const [ totalWorkoutsCount, setTotalWorkoutsCount ] = React.useState(0);
-  const [ totalCaloriesBurnt, setTotalCaloriesBurnt ] = React.useState(0);
-  const [ totalDurationCompleted, setTotalDurationCompleted ] = React.useState(0);
-
-  const [ workouts, setWorkouts ] = React.useState(useSelector((state) => state.workout.availableWorkouts));
-  const [ detailedWorkoutHistory, setDetailedWorkoutHistory ] = React.useState([]);
-
-  const [ preference, setPreference ] = React.useState(useSelector((state) => state.workout.userPreference));
-  const [ goal, setGoal ] = React.useState(preference ? preference.goal : null);
+  const [workoutHistory, setWorkoutHistory] = React.useState(useSelector((state) => state.workout.history));
+  const [workouts, setWorkouts] = React.useState(useSelector((state) => state.workout.availableWorkouts));
+  const [preference, setPreference] = React.useState(useSelector((state) => state.workout.userPreference));
 
   const getFirstName = (fullName) => {
     if (!fullName) return '';
@@ -32,62 +26,65 @@ export default function DashboardScreen({ navigation }) {
     return names[0];
   }
 
-  React.useEffect(() => {
-    if (workouts.length === 0) {
-      fetchAvailableWorkouts().then(workouts => {
-        setWorkouts(workouts);
+  useFocusEffect(
+    React.useCallback(() => {
+      let isMounted = true;
+
+      fetchAvailableWorkouts()
+        .then(data => {
+          if (isMounted) setWorkouts(data);
+        })
+        .catch(error => console.error("Failed to fetch available workouts:", error));
+
+      if (user?.id) {
+        fetchWorkoutHistory(user.id)
+          .then(history => {
+            if (isMounted) {
+              history.sort((a, b) => new Date(b.date) - new Date(a.date));
+              setWorkoutHistory(history);
+              dispatch(setUserWorkoutHistory({ history }));
+            }
+          })
+          .catch(error => console.error("Failed to fetch workout history:", error));
+
+        fetchUserPreference(user.id)
+          .then(pref => {
+            if (isMounted) setPreference(pref);
+          })
+          .catch(error => console.error("Failed to fetch user preference:", error));
       }
-      ).catch(error => {
-        console.error("Failed to fetch available workouts:", error);
-      });
-    }
-  }, [workouts]);
 
-  React.useEffect(() => {
-    if (workoutHistory.length === 0) {
-      fetchWorkoutHistory(user.id).then(history => {
-        history.sort((a, b) => new Date(b.date) - new Date(a.date));
-        setWorkoutHistory(history);
-        dispatch(setUserWorkoutHistory({ history }));
-      }).catch(error => {
-        console.error("Failed to fetch workout history:", error);
-      });
-    }
+      return () => {
+        isMounted = false;
+      };
+    }, [user?.id, dispatch])
+  );
 
-    setTotalWorkoutsCount(workoutHistory.length);
-    setTotalCaloriesBurnt(workoutHistory.reduce((total, workout) => total + workout.caloriesBurned, 0));
-    setTotalDurationCompleted(workoutHistory.reduce((total, workout) => total + workout.durationCompleted, 0));
+  const totalWorkoutsCount = workoutHistory.length;
+
+  const totalCaloriesBurnt = React.useMemo(() => {
+    return workoutHistory.reduce((total, workout) => total + (workout.caloriesBurned || 0), 0);
   }, [workoutHistory]);
 
-  React.useEffect(() => {
-    const detailedHistory = workoutHistory.map(workout => {
+  const totalDurationCompleted = React.useMemo(() => {
+    return workoutHistory.reduce((total, workout) => total + (workout.durationCompleted || 0), 0);
+  }, [workoutHistory]);
+
+  const detailedWorkoutHistory = React.useMemo(() => {
+    return workoutHistory.map(workout => {
       const workoutDetails = workouts.find(w => w.id === workout.workoutId);
       return {
         ...workout,
         workoutName: workoutDetails ? workoutDetails.name : 'Unknown Workout',
       };
-    }
-    );
-    setDetailedWorkoutHistory(detailedHistory);
+    });
   }, [workoutHistory, workouts]);
 
-  React.useEffect(() => {
-    if (preference) {
-      setGoal(preference.goal);
-    } else {
-      fetchUserPreference(user.id).then(pref => {
-        setPreference(pref);
-      }).catch(error => {
-        console.error("Failed to fetch user preference:", error);
-      });
-    }
-
-    setGoal(preference ? preference.goal : null);
-  }, [preference]);
+  const goal = preference ? preference.goal : null;
 
   const renderHeader = () => (
     <View style={styles.headerContainer}>
-      <WelcomeCard name={getFirstName(user.name)} />
+      <WelcomeCard name={getFirstName(user?.name)} />
 
       <View style={styles.summaryContainer}>
         <SummaryCard title="Workouts" value={totalWorkoutsCount} />
