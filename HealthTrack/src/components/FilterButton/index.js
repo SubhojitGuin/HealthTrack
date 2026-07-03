@@ -23,6 +23,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     borderRadius: 20,
     marginRight: 10,
+    marginBottom: 5,
     elevation: 2,
   },
   filterText: {

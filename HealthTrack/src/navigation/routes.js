@@ -13,3 +13,4 @@ export const PROFILE_SCREEN = 'ProfileScreen';
 export const SETTINGS_SCREEN = 'SettingsScreen';
 export const WORKOUT_SCREEN = 'WorkoutScreen';
 export const NUTRIENTS_SCREEN = 'NutrientsScreen';
+export const OUTDOOR_RUN_SCREEN = 'OutdoorRunScreen';
