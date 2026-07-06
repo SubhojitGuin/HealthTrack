@@ -5,7 +5,7 @@ import {
   Alert,
   KeyboardAvoidingView,
   Platform,
-  Text
+  Text,
 } from "react-native";
 import { Formik, ErrorMessage } from "formik";
 import * as Yup from "yup";
@@ -49,8 +49,17 @@ export default function SignupScreen({ navigation }) {
 
   const handleSignup = async (values) => {
     try {
-      const user = await signupUser({ ...values, age: Number(values.age), weight: Number(values.weight), height: Number(values.height), token: "mock_jwt_token_user_001", role: "user", profilePhoto: "", progressPhotos: [] });
-      
+      const user = await signupUser({
+        ...values,
+        age: Number(values.age),
+        weight: Number(values.weight),
+        height: Number(values.height),
+        token: "mock_jwt_token_user_001",
+        role: "user",
+        profilePhoto: "",
+        progressPhotos: [],
+      });
+
       const preferences = await addUserPreferences({
         userId: user.id,
         theme: "light",
@@ -78,7 +87,14 @@ export default function SignupScreen({ navigation }) {
 
   return (
     <Formik
-      initialValues={{ name: "", email: "", password: "", age: 0, weight: 0, height: 0 }}
+      initialValues={{
+        name: "",
+        email: "",
+        password: "",
+        age: 0,
+        weight: 0,
+        height: 0,
+      }}
       validationSchema={SignupSchema}
       onSubmit={handleSignup}
     >
@@ -153,16 +169,16 @@ export default function SignupScreen({ navigation }) {
                 />
                 <ErrorMessage name="height" component={ErrorText} />
               </View>
-              </View>
-              <Input
-                placeholder="Password"
-                label="Password"
-                secureTextEntry
-                value={values.password}
-                onChangeText={handleChange("password")}
-                onBlur={handleBlur("password")}
-              />
-              <ErrorMessage name="password" component={ErrorText} />
+            </View>
+            <Input
+              placeholder="Password"
+              label="Password"
+              secureTextEntry
+              value={values.password}
+              onChangeText={handleChange("password")}
+              onBlur={handleBlur("password")}
+            />
+            <ErrorMessage name="password" component={ErrorText} />
           </View>
 
           <View style={styles.buttonContainer}>
