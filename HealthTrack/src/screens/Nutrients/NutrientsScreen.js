@@ -130,6 +130,7 @@ export default function NutrientsScreen({ navigation }) {
           <FlatList 
             style={styles.container}
             data={filteredNutrients}
+            extraData={[selectedPlanType, debouncedSearchQuery]}
             keyExtractor={(item, index) => item.id ? item.id.toString() : index.toString()}
             ListHeaderComponent={
               <ScreenHeader 
