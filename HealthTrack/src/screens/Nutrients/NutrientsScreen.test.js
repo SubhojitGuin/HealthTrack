@@ -33,7 +33,7 @@ jest.mock('react-native-safe-area-context', () => ({
   SafeAreaView: ({ children }) => children,
 }));
 
-describe('NutrientsScreen Integration Tests', () => {
+describe('NutrientsScreen Tests', () => {
   const mockNavigation = {
     navigate: jest.fn(),
   };

@@ -27,7 +27,7 @@ jest.mock('../../services/storageService', () => ({
   storageService: { getItem: jest.fn() },
 }));
 
-describe('SplashScreen Components Tests', () => {
+describe('SplashScreen Tests', () => {
   const mockNavigation = {
     replace: jest.fn(),
   };
