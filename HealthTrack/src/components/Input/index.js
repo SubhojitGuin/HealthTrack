@@ -33,7 +33,7 @@ const Input = ({
   )
 }
 
-export default Input;
+export default React.memo(Input);
 
 const getStyles = (colors) => 
   StyleSheet.create({

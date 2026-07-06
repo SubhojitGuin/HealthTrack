@@ -15,7 +15,7 @@ const SectionHeader = ({ text, subtitle }) => {
   )
 }
 
-export default SectionHeader
+export default React.memo(SectionHeader);
 
 const getStyles = (colors) => StyleSheet.create({
   container: {

@@ -14,7 +14,7 @@ const Button = ({ title, onPress }) => {
   )
 }
 
-export default Button;
+export default React.memo(Button);
 
 const getStyles = (colors) => StyleSheet.create({
   button: {

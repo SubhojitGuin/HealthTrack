@@ -17,7 +17,7 @@ const Loader = ({ text }) => {
   )
 }
 
-export default Loader
+export default React.memo(Loader);
 
 const getStyles = (colors) => StyleSheet.create({
   container: {

@@ -11,6 +11,7 @@ import NutrientCard from '../../components/NutrientCard';
 import Input from '../../components/Input';
 import useDebounce from '../../hooks/useDebounce';
 import Loader from '../../components/Loader';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
 const nutritionPlanTypes = [
   { label: "All", value: "" },
@@ -23,6 +24,7 @@ const nutritionPlanTypes = [
 const ScreenHeader = ({ searchQuery, setSearchQuery, selectedPlanType, handlePlanTypeChange }) => {
   const colors = useSelector((state) => state.theme.colors);
   const styles = getStyles(colors);
+
   return (
     <View style={styles.headerContainer}>
       <SectionHeader text="Nutrient Plans" subtitle="Track your daily meals" />
@@ -91,9 +93,17 @@ export default function NutrientsScreen({ navigation }) {
     setFilteredNutrients(filtered);
   }, [selectedPlanType, storeNutritionPlans, debouncedSearchQuery]);
 
-  const handlePlanTypeChange = (type) => {
+  const handlePlanTypeChange = React.useCallback((type) => {
     setSelectedPlanType(type);
-  };
+  }, []);
+
+  const navigateToDashboard = React.useCallback(() => {
+    navigation.navigate(DASHBOARD_SCREEN);
+  }, [navigation]);
+
+  const navigateToWorkouts = React.useCallback(() => {
+    navigation.navigate(WORKOUT_SCREEN);
+  }, [navigation]);
 
   if (isLoading) {
     return (
@@ -104,36 +114,40 @@ export default function NutrientsScreen({ navigation }) {
   const renderFooter = () => (
     <View style={styles.footerContainer}>
       <View style={styles.buttonContainer}>
-        <Button title="Go to Dashboard" onPress={() => navigation.navigate(DASHBOARD_SCREEN)} />
-        <Button title="Go to Workouts" onPress={() => navigation.navigate(WORKOUT_SCREEN)} />
+        <Button title="Go to Dashboard" onPress={navigateToDashboard} />
+        <Button title="Go to Workouts" onPress={navigateToWorkouts} />
       </View>
     </View>
   );
 
   return (
-    <KeyboardAvoidingView 
-      style={styles.keyboardContainer} 
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-    >
-      <FlatList 
-        style={styles.container}
-        data={filteredNutrients}
-        keyExtractor={(item, index) => item.id ? item.id.toString() : index.toString()}
-        ListHeaderComponent={
-          <ScreenHeader 
-            searchQuery={searchQuery}
-            setSearchQuery={setSearchQuery}
-            selectedPlanType={selectedPlanType}
-            handlePlanTypeChange={handlePlanTypeChange}
+    <SafeAreaProvider style={{ flex: 1 }}>
+      <SafeAreaView style={{ flex: 1 }}>
+        <KeyboardAvoidingView 
+          style={styles.keyboardContainer} 
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        >
+          <FlatList 
+            style={styles.container}
+            data={filteredNutrients}
+            keyExtractor={(item, index) => item.id ? item.id.toString() : index.toString()}
+            ListHeaderComponent={
+              <ScreenHeader 
+                searchQuery={searchQuery}
+                setSearchQuery={setSearchQuery}
+                selectedPlanType={selectedPlanType}
+                handlePlanTypeChange={handlePlanTypeChange}
+              />
+            }
+            ListFooterComponent={renderFooter}
+            ListEmptyComponent={<Text style={styles.emptyText}>No nutrient plan available.</Text>}
+            renderItem={({ item }) => (
+              <NutrientCard nutrient={item} />
+            )}
           />
-        }
-        ListFooterComponent={renderFooter}
-        ListEmptyComponent={<Text style={styles.emptyText}>No nutrient plan available.</Text>}
-        renderItem={({ item }) => (
-          <NutrientCard nutrient={item} />
-        )}
-      />
-    </KeyboardAvoidingView>
+        </KeyboardAvoidingView>
+      </SafeAreaView>
+    </SafeAreaProvider>
   )
 }
 

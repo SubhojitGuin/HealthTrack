@@ -7,6 +7,7 @@ import Loader from '../../components/Loader';
 import MapView, { Marker, Polyline } from 'react-native-maps'; 
 import FilterButton from '../../components/FilterButton';
 import { darkMapStyle } from '../../styles/colors';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
 export default function OutdoorRunScreen() {
 
@@ -73,7 +74,7 @@ export default function OutdoorRunScreen() {
     };
   }, [selectedRun]);
 
-  const handleRunSelection = (index) => {
+  const handleRunSelection = React.useCallback((index) => {
     const nextRun = outdoorRuns[index];
     setSelectedRunIndex(index);
     setSelectedRun(nextRun);
@@ -89,7 +90,7 @@ export default function OutdoorRunScreen() {
         animated: true,
       });
     }
-  }
+  }, [mapRef, outdoorRuns]);
 
   if (isLoading) {
     return <Loader text="Loading map..." />;
@@ -106,85 +107,87 @@ export default function OutdoorRunScreen() {
   const validCoordinates = selectedRun?.routeCoordinates || [];
 
   return (
-    <View style={styles.container}> 
-      <MapView
-        ref={mapRef}
-        style={styles.map}
-        initialRegion={initialRegion}
-        userInterfaceStyle={colors.mode}
-        customMapStyle={mapStyle(colors)}
-      >
-        {validCoordinates.length > 0 && (
-          <Marker
-            key="marker-start-point"
-            coordinate={validCoordinates[0]}
-            title="Start Position"
-            pinColor="green"
+    <SafeAreaProvider style={{ flex: 1 }}>
+      <SafeAreaView style={styles.container}>
+        <MapView
+          ref={mapRef}
+          style={styles.map}
+          initialRegion={initialRegion}
+          userInterfaceStyle={colors.mode}
+          customMapStyle={mapStyle(colors)}
+        >
+          {validCoordinates.length > 0 && (
+            <Marker
+              key="marker-start-point"
+              coordinate={validCoordinates[0]}
+              title="Start Position"
+              pinColor="green"
+            />
+          )}
+
+          {validCoordinates.length > 1 && (
+            <Marker
+              key="marker-end-point"
+              coordinate={validCoordinates[validCoordinates.length - 1]}
+              title="Finish Line"
+              pinColor="red"
+            />
+          )}
+
+          {validCoordinates.length > 0 && (
+            <Polyline
+              coordinates={validCoordinates}
+              strokeColor="#1E90FF"
+              strokeWidth={4}
+            />
+          )}
+        </MapView>
+
+        <View style={styles.overlayCardContainer}>
+          <FlatList
+            data={outdoorRuns}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            keyExtractor={(item, index) => `run-tab-${index}`}
+            style={styles.pickerList}
+            contentContainerStyle={styles.pickerContent}
+            renderItem={({ item, index }) => {
+              const isSelected = index === selectedRunIndex;
+              return (
+                <FilterButton 
+                  item={{ label: `Run #${index + 1}`, value: index }}
+                  isSelected={isSelected}
+                  onPress={() => handleRunSelection(index)}
+                />
+              )
+            }}
           />
-        )}
 
-        {validCoordinates.length > 1 && (
-          <Marker
-            key="marker-end-point"
-            coordinate={validCoordinates[validCoordinates.length - 1]}
-            title="Finish Line"
-            pinColor="red"
-          />
-        )}
+          {selectedRun && (
+            <View style={styles.statsContainer}>
+              <View style={styles.statColumn}>
+                <Text style={styles.statLabel}>📅 Date</Text>
+                <Text style={styles.statValue}>{selectedRun.date || 'N/A'}</Text>
+              </View>
 
-        {validCoordinates.length > 0 && (
-          <Polyline
-            coordinates={validCoordinates}
-            strokeColor="#1E90FF"
-            strokeWidth={4}
-          />
-        )}
-      </MapView>
+              <View style={styles.statColumn}>
+                <Text style={styles.statLabel}>🏃 Distance</Text>
+                <Text style={styles.statValue}>
+                  {selectedRun.distanceKm ? `${selectedRun.distanceKm} km` : '0 km'}
+                </Text>
+              </View>
 
-      <View style={styles.overlayCardContainer}>
-        <FlatList
-          data={outdoorRuns}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          keyExtractor={(item, index) => `run-tab-${index}`}
-          style={styles.pickerList}
-          contentContainerStyle={styles.pickerContent}
-          renderItem={({ item, index }) => {
-            const isSelected = index === selectedRunIndex;
-            return (
-              <FilterButton 
-                item={{ label: `Run #${index + 1}`, value: index }}
-                isSelected={isSelected}
-                onPress={() => handleRunSelection(index)}
-              />
-            )
-          }}
-        />
-
-        {selectedRun && (
-          <View style={styles.statsContainer}>
-            <View style={styles.statColumn}>
-              <Text style={styles.statLabel}>📅 Date</Text>
-              <Text style={styles.statValue}>{selectedRun.date || 'N/A'}</Text>
+              <View style={styles.statColumn}>
+                <Text style={styles.statLabel}>⏱️ Duration</Text>
+                <Text style={styles.statValue}>
+                  {selectedRun.durationMinutes ? `${selectedRun.durationMinutes} min` : '0 min'}
+                </Text>
+              </View>
             </View>
-
-            <View style={styles.statColumn}>
-              <Text style={styles.statLabel}>🏃 Distance</Text>
-              <Text style={styles.statValue}>
-                {selectedRun.distanceKm ? `${selectedRun.distanceKm} km` : '0 km'}
-              </Text>
-            </View>
-
-            <View style={styles.statColumn}>
-              <Text style={styles.statLabel}>⏱️ Duration</Text>
-              <Text style={styles.statValue}>
-                {selectedRun.durationMinutes ? `${selectedRun.durationMinutes} min` : '0 min'}
-              </Text>
-            </View>
-          </View>
-        )}
-      </View>
-    </View>
+          )}
+        </View>
+      </SafeAreaView>
+    </SafeAreaProvider>
   )
 }
 

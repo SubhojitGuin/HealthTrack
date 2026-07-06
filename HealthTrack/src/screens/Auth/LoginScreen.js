@@ -13,8 +13,9 @@ import SectionHeader from "../../components/SectionHeader";
 import { DRAWER_NAVIGATOR, SIGNUP_SCREEN } from "../../navigation/routes";
 import { setUserPreferences } from "../../store/slices/workoutSlice";
 import { setTheme } from "../../store/slices/themeSlice";
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
-const LoginSchema = Yup.object({
+const LoginSchema = Yup.object().shape({
   email: Yup.string().email("Invalid Email").required("Email is required"),
   password: Yup.string().required("Password is required"),
 });
@@ -57,40 +58,44 @@ export default function LoginScreen({ navigation }) {
   }
 
   return (
-    <Formik
-      initialValues={{ email: "", password: "" }}
-      validationSchema={LoginSchema}
-      onSubmit={handleLogin}
-    >
-      {({ values, handleChange, handleBlur, handleSubmit }) => (
-        <KeyboardAvoidingView style={styles.loginContainer} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-          <View style={styles.sectionContainer}>
-            <SectionHeader text="Login" />
-          </View>
-          <View>
-            <Input
-              placeholder="Email"
-              value={values.email}
-              onChangeText={handleChange("email")}
-              onBlur={handleBlur("email")}
-            />
-            <ErrorMessage name="email" component={ErrorText} />
-            <Input
-              placeholder="Password"
-              secureTextEntry
-              value={values.password}
-              onChangeText={handleChange("password")}
-              onBlur={handleBlur("password")}
-            />
-            <ErrorMessage name="password" component={ErrorText} />
-          </View>
-          <View style={styles.buttonContainer}>
-            <Button title="Login" onPress={handleSubmit} />
-            <Button title="Go to Signup" onPress={() => navigation.replace(SIGNUP_SCREEN)} />
-          </View>
-        </KeyboardAvoidingView>
-      )}
-    </Formik>
+    <SafeAreaProvider style={{ flex: 1 }}>
+      <SafeAreaView style={{ flex: 1 }}>
+        <Formik
+          initialValues={{ email: "", password: "" }}
+          validationSchema={LoginSchema}
+          onSubmit={handleLogin}
+        >
+          {({ values, handleChange, handleBlur, handleSubmit }) => (
+            <KeyboardAvoidingView style={styles.loginContainer} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+              <View style={styles.sectionContainer}>
+                <SectionHeader text="Login" />
+              </View>
+              <View>
+                <Input
+                  placeholder="Email"
+                  value={values.email}
+                  onChangeText={handleChange("email")}
+                  onBlur={handleBlur("email")}
+                />
+                <ErrorMessage name="email" component={ErrorText} />
+                <Input
+                  placeholder="Password"
+                  secureTextEntry
+                  value={values.password}
+                  onChangeText={handleChange("password")}
+                  onBlur={handleBlur("password")}
+                />
+                <ErrorMessage name="password" component={ErrorText} />
+              </View>
+              <View style={styles.buttonContainer}>
+                <Button title="Login" onPress={handleSubmit} />
+                <Button title="Go to Signup" onPress={() => navigation.replace(SIGNUP_SCREEN)} />
+              </View>
+            </KeyboardAvoidingView>
+          )}
+        </Formik>
+      </SafeAreaView>
+    </SafeAreaProvider>
   )
 }
 

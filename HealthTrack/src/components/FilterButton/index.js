@@ -19,7 +19,7 @@ const FilterButton = ({ item, isSelected, onPress }) => {
   )
 }
 
-export default FilterButton
+export default React.memo(FilterButton);
 
 const getStyles = (colors) => StyleSheet.create({
   filterButton: {

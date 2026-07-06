@@ -7,6 +7,7 @@ import { setUserPreferences } from '../../store/slices/workoutSlice';
 import { setTheme } from '../../store/slices/themeSlice';
 import { storageService } from '../../services/storageService';
 import { Picker } from '@react-native-picker/picker';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
 const GOALS = [
   'Weight Loss',
@@ -52,61 +53,63 @@ export default function SettingsScreen() {
   }
 
   return (
-    <View style={styles.container}>
-      <SectionHeader text="Settings" subtitle="Manage your account and preferences" />
+    <SafeAreaProvider style={{ flex: 1 }}>
+      <SafeAreaView style={styles.container}>
+        <SectionHeader text="Settings" subtitle="Manage your account and preferences" />
 
-      <View style={styles.card}>
-        <Text style={styles.title}>Profile</Text>
-        <Text style={styles.text}>Name: {user.name}</Text>
-        <Text style={styles.text}>Email: {user.email}</Text>
-        <Text style={styles.text}>Age: {user.age}</Text>
-      </View>
+        <View style={styles.card}>
+          <Text style={styles.title}>Profile</Text>
+          <Text style={styles.text}>Name: {user.name}</Text>
+          <Text style={styles.text}>Email: {user.email}</Text>
+          <Text style={styles.text}>Age: {user.age}</Text>
+        </View>
 
-      <View style={styles.card}>
-        <View style={styles.settingRow}>
-          <Text style={styles.settingText}>Notifications</Text>
-          <Switch value={preferences.notificationsEnabled} onValueChange={changeNotification} />
-        </View>
-        <View style={styles.settingRow}>
-          <Text style={styles.settingText}>Dark Mode</Text>
-          <Switch value={theme === 'dark'} onValueChange={changeTheme} />
-        </View>
-        
-        <View style={styles.pickerRow}>
-          <Text style={styles.settingText}>Goal</Text>
-          <View style={styles.pickerContainer}>
-            <Picker
-              selectedValue={preferences.goal}
-              onValueChange={changeGoal}
-              style={styles.picker}
-              dropdownIconColor={colors.textSecondary}
-              itemStyle={{ color: colors.text, fontSize: 16 }}
-            >
-              {GOALS.map((goal) => (
-                <Picker.Item 
-                  key={goal} 
-                  label={goal} 
-                  value={goal} 
-                  color={colors.text}
-                  style={{ backgroundColor: colors.card }}
-                />
-              ))}
-            </Picker>
+        <View style={styles.card}>
+          <View style={styles.settingRow}>
+            <Text style={styles.settingText}>Notifications</Text>
+            <Switch value={preferences.notificationsEnabled} onValueChange={changeNotification} />
+          </View>
+          <View style={styles.settingRow}>
+            <Text style={styles.settingText}>Dark Mode</Text>
+            <Switch value={theme === 'dark'} onValueChange={changeTheme} />
+          </View>
+          
+          <View style={styles.pickerRow}>
+            <Text style={styles.settingText}>Goal</Text>
+            <View style={styles.pickerContainer}>
+              <Picker
+                selectedValue={preferences.goal}
+                onValueChange={changeGoal}
+                style={styles.picker}
+                dropdownIconColor={colors.textSecondary}
+                itemStyle={{ color: colors.text, fontSize: 16 }}
+              >
+                {GOALS.map((goal) => (
+                  <Picker.Item 
+                    key={goal} 
+                    label={goal} 
+                    value={goal} 
+                    color={colors.text}
+                    style={{ backgroundColor: colors.card }}
+                  />
+                ))}
+              </Picker>
+            </View>
           </View>
         </View>
-      </View>
 
-      <View style={styles.card}>
-        <Text style={styles.title}>Units</Text>
-        <Text style={styles.text}>Weight: kg</Text>
-        <Text style={styles.text}>Height: cm</Text>
-      </View>
+        <View style={styles.card}>
+          <Text style={styles.title}>Units</Text>
+          <Text style={styles.text}>Weight: kg</Text>
+          <Text style={styles.text}>Height: cm</Text>
+        </View>
 
-      <View style={styles.card}>
-        <Text style={styles.title}>App Version</Text>
-        <Text style={styles.text}>HealthTrack v1.0.0</Text>
-      </View>
-    </View>
+        <View style={styles.card}>
+          <Text style={styles.title}>App Version</Text>
+          <Text style={styles.text}>HealthTrack v1.0.0</Text>
+        </View>
+      </SafeAreaView>
+    </SafeAreaProvider>
   )
 }
 

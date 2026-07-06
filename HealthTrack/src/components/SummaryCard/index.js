@@ -14,7 +14,7 @@ const SummaryCard = ({ title, value }) => {
   )
 }
 
-export default SummaryCard
+export default React.memo(SummaryCard);
 
 const getStyles = (colors) => StyleSheet.create({
   container: {

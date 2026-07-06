@@ -20,7 +20,7 @@ const WorkoutHistoryCard = ({ workoutName, date, duration, calories }) => {
   )
 }
 
-export default WorkoutHistoryCard
+export default React.memo(WorkoutHistoryCard);
 
 const getStyles = (colors) => StyleSheet.create({
   container: {

@@ -11,6 +11,7 @@ import Button from '../../components/Button';
 import { PROFILE_SCREEN, WORKOUT_SCREEN } from '../../navigation/routes';
 import { useFocusEffect } from '@react-navigation/native';
 import Loader from '../../components/Loader';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
 export default function DashboardScreen({ navigation }) {
 
@@ -135,22 +136,26 @@ export default function DashboardScreen({ navigation }) {
   );
 
   return (
-    <FlatList 
-      style={styles.container}
-      data={detailedWorkoutHistory}
-      keyExtractor={(item) => item.id.toString()}
-      ListHeaderComponent={renderHeader}
-      ListFooterComponent={renderFooter}
-      ListEmptyComponent={<Text style={styles.emptyText}>No workout history available.</Text>}
-      renderItem={({ item }) => (
-        <WorkoutHistoryCard
-          workoutName={item.workoutName}
-          date={item.date}
-          duration={item.durationCompleted}
-          calories={item.caloriesBurned}
+    <SafeAreaProvider style={{ flex: 1 }}>
+      <SafeAreaView style={{ flex: 1 }}>
+        <FlatList 
+          style={styles.container}
+          data={detailedWorkoutHistory}
+          keyExtractor={(item) => item.id.toString()}
+          ListHeaderComponent={renderHeader}
+          ListFooterComponent={renderFooter}
+          ListEmptyComponent={<Text style={styles.emptyText}>No workout history available.</Text>}
+          renderItem={({ item }) => (
+            <WorkoutHistoryCard
+              workoutName={item.workoutName}
+              date={item.date}
+              duration={item.durationCompleted}
+              calories={item.caloriesBurned}
+            />
+          )}
         />
-      )}
-    />
+      </SafeAreaView>
+    </SafeAreaProvider>
   )
 }
 

@@ -15,7 +15,7 @@ const WelcomeCard = ({ name }) => {
   )
 }
 
-export default WelcomeCard
+export default React.memo(WelcomeCard);
 
 const getStyles = (colors) => StyleSheet.create({
   container: {

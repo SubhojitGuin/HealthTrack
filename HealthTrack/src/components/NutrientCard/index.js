@@ -23,7 +23,7 @@ const NutrientCard = ({ nutrient }) => {
   )
 }
 
-export default NutrientCard
+export default React.memo(NutrientCard);
 
 const getStyles = (colors) => StyleSheet.create({
   container: {
