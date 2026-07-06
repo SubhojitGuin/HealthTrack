@@ -45,7 +45,7 @@ jest.mock('react-native-safe-area-context', () => {
   };
 });
 
-describe('LoginScreen Integration Tests', () => {
+describe('LoginScreen Tests', () => {
   const mockNavigation = {
     reset: jest.fn(),
     replace: jest.fn(),

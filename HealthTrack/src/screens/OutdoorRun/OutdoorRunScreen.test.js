@@ -51,7 +51,7 @@ jest.mock('react-native-safe-area-context', () => ({
   SafeAreaView: ({ children }) => children,
 }));
 
-describe('OutdoorRunScreen Integration Tests', () => {
+describe('OutdoorRunScreen Tests', () => {
   const mockRunData = [
     {
       id: 'run-1',

@@ -40,7 +40,7 @@ jest.mock('react-native-safe-area-context', () => ({
   SafeAreaView: ({ children }) => children,
 }));
 
-describe('DashboardScreen Integration Tests', () => {
+describe('DashboardScreen Tests', () => {
   const mockNavigation = {
     navigate: jest.fn(),
   };
