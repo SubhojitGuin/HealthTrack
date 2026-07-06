@@ -23,7 +23,6 @@ import {
 } from "../../navigation/routes";
 
 export default function WorkoutScreen({ navigation }) {
-
   const colors = useSelector((state) => state.theme.colors);
   const styles = getStyles(colors);
 
@@ -243,173 +242,174 @@ export default function WorkoutScreen({ navigation }) {
   );
 }
 
-const getStyles = (colors) => StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: colors.background,
-  },
+const getStyles = (colors) =>
+  StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: colors.background,
+    },
 
-  header: {
-    backgroundColor: colors.surface,
-    paddingTop: 55,
-    paddingBottom: 20,
-    alignItems: "center",
-    borderBottomLeftRadius: 25,
-    borderBottomRightRadius: 25,
-    elevation: 3,
-    marginBottom: 20,
-  },
+    header: {
+      backgroundColor: colors.surface,
+      paddingTop: 55,
+      paddingBottom: 20,
+      alignItems: "center",
+      borderBottomLeftRadius: 25,
+      borderBottomRightRadius: 25,
+      elevation: 3,
+      marginBottom: 20,
+    },
 
-  headerTitle: {
-    fontSize: 24,
-    fontWeight: "700",
-    color: colors.text,
-  },
+    headerTitle: {
+      fontSize: 24,
+      fontWeight: "700",
+      color: colors.text,
+    },
 
-  searchContainer: {
-    marginHorizontal: 20,
-    marginBottom: 15,
-  },
+    searchContainer: {
+      marginHorizontal: 20,
+      marginBottom: 15,
+    },
 
-  searchInput: {
-    backgroundColor: colors.surface,
-    borderRadius: 15,
-    paddingHorizontal: 18,
-    height: 50,
-    fontSize: 16,
-    elevation: 2,
-  },
+    searchInput: {
+      backgroundColor: colors.surface,
+      borderRadius: 15,
+      paddingHorizontal: 18,
+      height: 50,
+      fontSize: 16,
+      elevation: 2,
+    },
 
-  filterContainer: {
-    paddingHorizontal: 20,
-    paddingBottom: 20,
-  },
+    filterContainer: {
+      paddingHorizontal: 20,
+      paddingBottom: 20,
+    },
 
-  filterButton: {
-    backgroundColor: colors.surface,
-    paddingHorizontal: 18,
-    paddingVertical: 10,
-    borderRadius: 20,
-    marginRight: 10,
-    elevation: 2,
-  },
+    filterButton: {
+      backgroundColor: colors.surface,
+      paddingHorizontal: 18,
+      paddingVertical: 10,
+      borderRadius: 20,
+      marginRight: 10,
+      elevation: 2,
+    },
 
-  activeFilterButton: {
-    backgroundColor: colors.primary,
-  },
+    activeFilterButton: {
+      backgroundColor: colors.primary,
+    },
 
-  filterText: {
-    color: colors.textSecondary,
-    fontWeight: "600",
-  },
+    filterText: {
+      color: colors.textSecondary,
+      fontWeight: "600",
+    },
 
-  activeFilterText: {
-    color: colors.textOnPrimary,
-  },
+    activeFilterText: {
+      color: colors.textOnPrimary,
+    },
 
-  workoutCard: {
-    backgroundColor: colors.surface,
-    borderRadius: 18,
-    padding: 18,
-    marginBottom: 18,
-    elevation: 3,
-  },
+    workoutCard: {
+      backgroundColor: colors.surface,
+      borderRadius: 18,
+      padding: 18,
+      marginBottom: 18,
+      elevation: 3,
+    },
 
-  workoutName: {
-    fontSize: 19,
-    fontWeight: "700",
-    color: colors.text,
-    marginBottom: 8,
-  },
+    workoutName: {
+      fontSize: 19,
+      fontWeight: "700",
+      color: colors.text,
+      marginBottom: 8,
+    },
 
-  description: {
-    color: colors.textSecondary,
-    fontSize: 14,
-    lineHeight: 20,
-    marginBottom: 15,
-  },
+    description: {
+      color: colors.textSecondary,
+      fontSize: 14,
+      lineHeight: 20,
+      marginBottom: 15,
+    },
 
-  infoRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginBottom: 12,
-  },
+    infoRow: {
+      flexDirection: "row",
+      justifyContent: "space-between",
+      alignItems: "center",
+      marginBottom: 12,
+    },
 
-  infoText: {
-    color: colors.textSecondary,
-    fontSize: 15,
-  },
+    infoText: {
+      color: colors.textSecondary,
+      fontSize: 15,
+    },
 
-  goal: {
-    color: colors.primary,
-    fontWeight: "600",
-    fontSize: 14,
-  },
+    goal: {
+      color: colors.primary,
+      fontWeight: "600",
+      fontSize: 14,
+    },
 
-  levelBadge: {
-    backgroundColor: colors.surface,
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 15,
-  },
+    levelBadge: {
+      backgroundColor: colors.surface,
+      paddingHorizontal: 12,
+      paddingVertical: 6,
+      borderRadius: 15,
+    },
 
-  levelText: {
-    color: colors.primary,
-    fontWeight: "700",
-    fontSize: 13,
-  },
+    levelText: {
+      color: colors.primary,
+      fontWeight: "700",
+      fontSize: 13,
+    },
 
-  startButton: {
-    marginTop: 8,
-    backgroundColor: colors.primary,
-    borderRadius: 12,
-    alignItems: "center",
-    paddingVertical: 14,
-  },
+    startButton: {
+      marginTop: 8,
+      backgroundColor: colors.primary,
+      borderRadius: 12,
+      alignItems: "center",
+      paddingVertical: 14,
+    },
 
-  startButtonText: {
-    color: colors.textOnPrimary,
-    fontWeight: "700",
-    fontSize: 16,
-  },
+    startButtonText: {
+      color: colors.textOnPrimary,
+      fontWeight: "700",
+      fontSize: 16,
+    },
 
-  emptyContainer: {
-    alignItems: "center",
-    marginTop: 60,
-  },
+    emptyContainer: {
+      alignItems: "center",
+      marginTop: 60,
+    },
 
-  emptyText: {
-    fontSize: 16,
-    color: colors.textSecondary,
-  },
+    emptyText: {
+      fontSize: 16,
+      color: colors.textSecondary,
+    },
 
-  navigationCard: {
-    backgroundColor: colors.surface,
-    borderRadius: 18,
-    padding: 20,
-    marginTop: 10,
-    elevation: 3,
-  },
+    navigationCard: {
+      backgroundColor: colors.surface,
+      borderRadius: 18,
+      padding: 20,
+      marginTop: 10,
+      elevation: 3,
+    },
 
-  navButton: {
-    backgroundColor: colors.primary,
-    paddingVertical: 14,
-    borderRadius: 12,
-    marginBottom: 12,
-    alignItems: "center",
-  },
+    navButton: {
+      backgroundColor: colors.primary,
+      paddingVertical: 14,
+      borderRadius: 12,
+      marginBottom: 12,
+      alignItems: "center",
+    },
 
-  navButtonText: {
-    color: colors.textOnPrimary,
-    fontSize: 16,
-    fontWeight: "600",
-  },
+    navButtonText: {
+      color: colors.textOnPrimary,
+      fontSize: 16,
+      fontWeight: "600",
+    },
 
-  headerText: {
-    fontSize: 20,
-    fontWeight: "700",
-    color: colors.text,
-    marginBottom: 18,
-  },
-});
+    headerText: {
+      fontSize: 20,
+      fontWeight: "700",
+      color: colors.text,
+      marginBottom: 18,
+    },
+  });
