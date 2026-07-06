@@ -52,7 +52,6 @@ export default function LoginScreen({ navigation }) {
         routes: [{ name: DRAWER_NAVIGATOR }],
       });
     }).catch(error => {
-      console.error("Login failed:", error);
       Alert.alert('Login Failed', 'Invalid email or password. Please try again.');
     })
   }
