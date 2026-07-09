@@ -10,12 +10,7 @@
       "age": 25,
       "weight": 70,
       "height": 175,
-      "profilePhoto": "file:///data/user/0/host.exp.exponent/cache/ImagePicker/c75a05ad-847f-4dea-9927-f38f6fab4d9b.jpeg",
-      "progressPhotos": [
-        "https://unsplash.com",
-        "https://unsplash.com",
-        "file:///data/user/0/host.exp.exponent/cache/ImagePicker/cd116867-b00a-475b-9593-72e7318e6f30.jpeg"
-      ]
+      "profilePhoto": "file:///data/user/0/host.exp.exponent/cache/ImagePicker/c75a05ad-847f-4dea-9927-f38f6fab4d9b.jpeg"
     },
     {
       "id": "2",
@@ -27,10 +22,7 @@
       "age": 28,
       "weight": 65,
       "height": 165,
-      "profilePhoto": "https://unsplash.com",
-      "progressPhotos": [
-        "https://unsplash.com"
-      ]
+      "profilePhoto": "https://unsplash.com"
     },
     {
       "id": "3",
@@ -42,8 +34,7 @@
       "age": 30,
       "weight": 80,
       "height": 180,
-      "profilePhoto": "https://unsplash.com",
-      "progressPhotos": []
+      "profilePhoto": "https://unsplash.com"
     },
     {
       "id": "4",
@@ -55,8 +46,7 @@
       "age": 26,
       "weight": 60,
       "height": 160,
-      "profilePhoto": "https://unsplash.com",
-      "progressPhotos": []
+      "profilePhoto": "https://unsplash.com"
     }
   ],
   "workouts": [
@@ -67,7 +57,6 @@
       "calories": 250,
       "level": "Beginner",
       "targetGoal": "Weight Loss",
-      "videoUrl": "https://googleapis.com",
       "description": "Low-impact steady-state cardio to kickstart fat burning."
     },
     {
@@ -77,7 +66,6 @@
       "calories": 400,
       "level": "Intermediate",
       "targetGoal": "Muscle Gain",
-      "videoUrl": "https://googleapis.com",
       "description": "Focused progressive overload targeting chest, shoulders, and triceps."
     },
     {
@@ -87,7 +75,6 @@
       "calories": 200,
       "level": "Beginner",
       "targetGoal": "Flexibility",
-      "videoUrl": "https://googleapis.com",
       "description": "Enhance structural mobility, flexibility, and core recovery."
     },
     {
@@ -97,7 +84,6 @@
       "calories": 300,
       "level": "Advanced",
       "targetGoal": "Endurance",
-      "videoUrl": "https://googleapis.com",
       "description": "High-intensity circuits to maximize post-exercise oxygen consumption."
     },
     {
@@ -107,7 +93,6 @@
       "calories": 130,
       "level": "Beginner",
       "targetGoal": "Weight Loss",
-      "videoUrl": "https://googleapis.com",
       "description": "Targeted abdominal conditioning to improve trunk strength."
     },
     {
@@ -117,7 +102,6 @@
       "calories": 420,
       "level": "Advanced",
       "targetGoal": "Muscle Gain",
-      "videoUrl": "https://googleapis.com",
       "description": "Heavy compounds concentrating on squats and deadlifts."
     },
     {
@@ -127,7 +111,6 @@
       "calories": 90,
       "level": "Beginner",
       "targetGoal": "Flexibility",
-      "videoUrl": "https://googleapis.com",
       "description": "Static holds designed to loosen tight hamstrings and hips."
     },
     {
@@ -137,7 +120,6 @@
       "calories": 380,
       "level": "Intermediate",
       "targetGoal": "Endurance",
-      "videoUrl": "https://googleapis.com",
       "description": "Footwork patterns optimized to scale up aerobic power output."
     }
   ],
@@ -386,70 +368,6 @@
           "longitude": 88.381
         }
       ]
-    }
-  ],
-  "progress": [
-    {
-      "id": "1",
-      "userId": "1",
-      "date": "2026-06-30",
-      "weight": 70,
-      "bodyFatPercentage": 18,
-      "muscleMass": 30
-    },
-    {
-      "id": "2",
-      "userId": "1",
-      "date": "2026-06-25",
-      "weight": 71,
-      "bodyFatPercentage": 19,
-      "muscleMass": 29
-    },
-    {
-      "id": "3",
-      "userId": "2",
-      "date": "2026-06-30",
-      "weight": 65,
-      "bodyFatPercentage": 22,
-      "muscleMass": 28
-    },
-    {
-      "id": "4",
-      "userId": "3",
-      "date": "2026-06-29",
-      "weight": 80,
-      "bodyFatPercentage": 15,
-      "muscleMass": 35
-    }
-  ],
-  "reviews": [
-    {
-      "id": "1",
-      "userId": "1",
-      "workoutId": "1",
-      "rating": 5,
-      "comment": "Great workout! Really helped me get my heart rate up."
-    },
-    {
-      "id": "2",
-      "userId": "2",
-      "workoutId": "2",
-      "rating": 4,
-      "comment": "Challenging but effective. I can feel the muscle burn!"
-    },
-    {
-      "id": "3",
-      "userId": "3",
-      "workoutId": "3",
-      "rating": 5,
-      "comment": "Loved the flow and the stretches. Very relaxing."
-    },
-    {
-      "id": "4",
-      "userId": "4",
-      "workoutId": "4",
-      "rating": 3,
-      "comment": "Intense workout, but I wish it was a bit longer."
     }
   ]
 }
